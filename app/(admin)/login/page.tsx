@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PawPrint, Loader2, ArrowRight, ShieldCheck } from "lucide-react";
+import { PawPrint, Loader2, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen w-full items-center justify-center bg-slate-50 p-4 md:p-0">
       {/* Kontainer Utama - Semua di dalam sini */}
       <div className="flex w-full max-w-[950px] overflow-hidden rounded-[2.5rem] bg-white shadow-2xl shadow-slate-200 min-h-[600px]">
-        {/* SISI KIRI: Brand Identity (Visual & Warna Utama) */}
+        
         <div className="hidden w-1/2 flex-col justify-between bg-primary p-12 text-white md:flex relative overflow-hidden">
           {/* Ornamen Background */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
@@ -65,10 +65,10 @@ export default function LoginPage() {
           <div className="relative z-10 flex items-center gap-2 text-sm font-semibold text-white/60"></div>
         </div>
 
-        {/* SISI KANAN: Form Login (Clean & Modern) */}
+       
         <div className="flex w-full flex-col justify-center p-8 md:w-1/2 md:p-16">
           <div className="mb-10 flex flex-col items-center md:items-start">
-            {/* Logo Mobile Only */}
+           
             <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary md:hidden">
               <PawPrint className="h-7 w-7 text-white" />
             </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
                   htmlFor="email"
                   className="text-xs font-bold uppercase tracking-widest text-slate-400"
                 >
-                  Email Kantor
+                  Email Administrator
                 </Label>
                 <Input
                   id="email"
