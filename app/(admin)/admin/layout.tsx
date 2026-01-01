@@ -1,44 +1,29 @@
 // app/(admin)/admin/layout.tsx
 import { AppSidebar } from "@/components/admin-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Utama</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+      <SidebarInset className="bg-[#fcfcfc]">
+        <header className="sticky top-0 z-10 flex h-20 shrink-0 items-center bg-white/50 px-6 backdrop-blur-md">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger className="h-9 w-9 rounded-xl border-none bg-slate-100 hover:bg-slate-200" />
+              <Separator orientation="vertical" className="h-4" />
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Portal Admin</span>
+                <span className="text-xs font-semibold text-slate-900">Kendali Utama</span>
+              </div>
+            </div>
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
+        <main className="p-6 md:p-10">
+          <div className="mx-auto max-w-7xl">
+            {children}
+          </div>
         </main>
       </SidebarInset>
     </SidebarProvider>
