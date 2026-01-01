@@ -142,22 +142,43 @@ export function SiteHeader() {
 
 function MegaMenuContent() {
   return (
-    <div className="grid w-[600px] grid-cols-2 p-1 bg-background rounded-[2rem] overflow-hidden">
-      <div className="flex flex-col justify-between p-10 bg-slate-50 dark:bg-slate-900/50 rounded-l-[1.9rem]">
-        <div>
-          <h3 className="text-2xl font-black text-foreground tracking-tight">Panduan Sehat</h3>
-          <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
-            Tips nutrisi dan jadwal kesehatan untuk kebahagiaan anabul Anda.
-          </p>
+    <div className="w-[700px] p-6">
+      <div className="grid grid-cols-2 gap-6">
+        {/* Left Side - Menu Items */}
+        <div className="space-y-2">
+          <h3 className="text-lg font-black text-foreground mb-4 px-3">Anabul Care</h3>
+          <ul className="space-y-1">
+            <ListItem title="Nutrisi & Diet" href="/nutrisi">
+              Makanan terbaik untuk kucing Anda
+            </ListItem>
+            <ListItem title="Kesehatan Vet" href="/kesehatan">
+              Vaksinasi dan konsultasi dokter hewan
+            </ListItem>
+            <ListItem title="Wellness" href="/wellness">
+              Tips kebersihan dan perawatan kucing
+            </ListItem>
+            <ListItem title="Perilaku" href="/behaviour">
+              Memahami bahasa tubuh kucing
+            </ListItem>
+          </ul>
         </div>
-        <Button size="lg" className="mt-10 w-full rounded-2xl font-bold text-primary-foreground">Pelajari</Button>
+
+        {/* Right Side - Image Placeholder */}
+        <div className="flex items-center justify-center">
+          <div className="w-full h-[280px] bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden relative">
+            {/* Placeholder untuk gambar kucing */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <PawPrint className="h-16 w-16 text-slate-300 dark:text-slate-700" />
+            </div>
+            {/* Text overlay untuk preview */}
+            <div className="absolute bottom-4 left-4 right-4 text-center">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
+                Image Preview Area
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <ul className="grid gap-2 p-8">
-        <ListItem title="Nutrisi & Diet" href="/nutrisi">Makanan terbaik.</ListItem>
-        <ListItem title="Kesehatan Vet" href="/kesehatan">Vaksin & dokter.</ListItem>
-        <ListItem title="Wellness" href="/wellness">Kebersihan kucing.</ListItem>
-        <ListItem title="Perilaku" href="/behaviour">Bahasa tubuh.</ListItem>
-      </ul>
     </div>
   )
 }
@@ -166,9 +187,16 @@ function ListItem({ title, children, href }: { title: string; children: string; 
   return (
     <li>
       <NavigationMenuLink asChild>
-        <Link href={href} className="block select-none space-y-1 rounded-2xl p-4 transition-all hover:bg-primary/5 hover:text-primary">
-          <div className="text-sm font-black tracking-tight">{title}</div>
-          <p className="line-clamp-2 text-[10px] text-muted-foreground mt-1">{children}</p>
+        <Link 
+          href={href} 
+          className="block select-none space-y-1 rounded-xl p-3 transition-all hover:bg-primary/5 hover:text-primary group"
+        >
+          <div className="text-sm font-bold tracking-tight group-hover:text-primary">
+            {title}
+          </div>
+          <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+            {children}
+          </p>
         </Link>
       </NavigationMenuLink>
     </li>
@@ -177,7 +205,11 @@ function ListItem({ title, children, href }: { title: string; children: string; 
 
 function MobileListItem({ title, href, onClick }: { title: string; href: string, onClick: () => void }) {
   return (
-    <Link href={href} onClick={onClick} className="block px-2 py-1 text-base font-bold text-muted-foreground hover:text-primary transition-colors">
+    <Link 
+      href={href} 
+      onClick={onClick} 
+      className="block px-2 py-1 text-base font-bold text-muted-foreground hover:text-primary transition-colors"
+    >
       {title}
     </Link>
   )
