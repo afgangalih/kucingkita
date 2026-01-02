@@ -1,7 +1,13 @@
 "use client";
-
 import * as React from "react";
-import { Search, X, RotateCcw, SlidersHorizontal, ChevronUp, Cat, Sparkles } from "lucide-react";
+import {
+  Search,
+  X,
+  RotateCcw,
+  SlidersHorizontal,
+  ChevronUp,
+  Sparkles,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BreedCard } from "@/components/ras-kucing/breed-card";
 import { BreedFilters } from "@/components/ras-kucing/breed-filters";
@@ -39,7 +45,7 @@ export default function RasKucingPage() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100);
+    const handleScroll = () => setIsScrolled(window.scrollY > 300);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -61,7 +67,6 @@ export default function RasKucingPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* 1. HERO SECTION */}
       <section className="relative pt-44 pb-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
@@ -88,72 +93,24 @@ export default function RasKucingPage() {
         </div>
       </section>
 
-      {/* 2. STICKY FILTER & SEARCH BAR - Focus Management Modern */}
-      <nav className={cn(
-        "sticky top-[64px] z-30 transition-all duration-500",
-        isScrolled ? "bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-slate-100" : "bg-white py-8"
-      )}>
-        <div className="container mx-auto px-4 flex items-center gap-6">
-          <div className="lg:hidden">
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button variant="outline" size="icon" className="h-14 w-14 rounded-full border-slate-100 bg-slate-50 hover:bg-white transition-colors">
-                  <SlidersHorizontal className="h-5 w-5 text-slate-600" />
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent className="rounded-t-[3rem]">
-                <div className="mx-auto w-full max-w-md pb-12">
-                  <DrawerHeader className="pt-8">
-                    <div className="mx-auto w-12 h-1.5 bg-slate-200 rounded-full mb-6" />
-                    <DrawerTitle className="text-2xl font-black uppercase italic text-center tracking-tighter">Filter Ras</DrawerTitle>
-                  </DrawerHeader>
-                  <div className="px-8 py-6 max-h-[50vh] overflow-y-auto">
-                    <BreedFilters selectedTraits={selectedTraits} onTraitChange={(t) => setSelectedTraits((p) => p.includes(t) ? p.filter((x) => x !== t) : [...p, t])} />
-                  </div>
-                  <DrawerFooter className="flex flex-row gap-4 p-8 border-t border-slate-50">
-                    <Button onClick={resetFilters} variant="ghost" className="flex-1 rounded-2xl font-bold h-14">Reset</Button>
-                    <DrawerClose asChild>
-                      <Button className="flex-1 rounded-2xl font-black uppercase tracking-widest bg-slate-900 h-14 text-white hover:bg-primary transition-colors">Selesai</Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </div>
-              </DrawerContent>
-            </Drawer>
-          </div>
-
-          <div className="relative w-full lg:max-w-lg group">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors z-10" />
-            <Input
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Cari ras kucing..."
-              className="h-14 pl-12 pr-12 rounded-full border-transparent bg-slate-100/50 hover:bg-slate-100 focus-visible:bg-white focus-visible:ring-0 focus-visible:border-primary/20 focus-visible:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] transition-all font-bold text-lg border-2"
-            />
-            {searchTerm && (
-              <button onClick={() => setSearchTerm("")} className="absolute right-5 top-1/2 -translate-y-1/2 p-1.5 hover:bg-slate-100 rounded-full transition-colors z-10">
-                <X className="h-4 w-4 text-slate-400 hover:text-primary" />
-              </button>
-            )}
-          </div>
-          
-          <div className="hidden lg:block">
-             {searchTerm || selectedTraits.length > 0 || selectedCoat !== 'all' ? (
-                <Button onClick={resetFilters} variant="ghost" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-primary gap-2 transition-colors">
-                  <RotateCcw className="h-3 w-3" /> Reset Pencarian
-                </Button>
-             ) : null}
-          </div>
-        </div>
-      </nav>
-
-      {/* 3. CONTENT SECTION */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="flex flex-col lg:flex-row gap-20">
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-col lg:flex-row gap-16">
           <aside className="hidden lg:block w-80 shrink-0">
-            <div className="sticky top-48 space-y-8">
-              <BreedFilters selectedTraits={selectedTraits} onTraitChange={(t) => setSelectedTraits((p) => p.includes(t) ? p.filter((x) => x !== t) : [...p, t])} />
+            <div className="sticky top-32 space-y-8">
+              <BreedFilters
+                selectedTraits={selectedTraits}
+                onTraitChange={(t) =>
+                  setSelectedTraits((p) =>
+                    p.includes(t) ? p.filter((x) => x !== t) : [...p, t]
+                  )
+                }
+              />
               {(selectedTraits.length > 0 || selectedCoat !== "all" || searchTerm !== "") && (
-                <Button onClick={resetFilters} variant="outline" className="w-full h-14 rounded-2xl text-slate-400 hover:text-primary transition-all gap-3 border-dashed border-2 text-[10px] font-black uppercase tracking-widest">
+                <Button
+                  onClick={resetFilters}
+                  variant="outline"
+                  className="w-full h-14 rounded-2xl text-slate-400 hover:text-primary transition-all gap-3 border-dashed border-2 text-[10px] font-black uppercase tracking-widest"
+                >
                   <RotateCcw className="h-3 w-3" /> Bersihkan Filter
                 </Button>
               )}
@@ -161,52 +118,143 @@ export default function RasKucingPage() {
           </aside>
 
           <div className="flex-1">
-            <div className="flex justify-start md:justify-center lg:justify-start mb-16 overflow-hidden">
-              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar w-full">
-                {COAT_TYPES.map((type) => (
-                  <button
-                    key={type.id}
-                    onClick={() => setSelectedCoat(type.id)}
-                    className={cn(
-                      "px-10 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap border-2 shrink-0 shadow-sm",
-                      selectedCoat === type.id
-                        ? "bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-300 scale-105"
-                        : "bg-white border-slate-50 text-slate-400 hover:border-slate-200"
+            <div className={cn(
+              "sticky z-40 bg-white transition-all duration-300",
+              isScrolled 
+                ? "top-[64px] pt-5 pb-7 shadow-md border-b border-slate-100 bg-white/95 backdrop-blur-md" 
+                : "top-0 pt-6 pb-10"
+            )}>
+              <div className="max-w-5xl mx-auto px-4 lg:px-0">
+                <div className="flex items-center gap-4 mb-7">
+                  <div className="lg:hidden shrink-0">
+                    <Drawer>
+                      <DrawerTrigger asChild>
+                        <Button variant="outline" size="icon" className="h-12 w-12 rounded-full border-slate-200 bg-white">
+                          <SlidersHorizontal className="h-5 w-5 text-slate-600" />
+                        </Button>
+                      </DrawerTrigger>
+                      <DrawerContent className="rounded-t-[3rem]">
+                        <div className="mx-auto w-full max-w-md pb-12">
+                          <DrawerHeader className="pt-8">
+                            <div className="mx-auto w-12 h-1.5 bg-slate-200 rounded-full mb-6" />
+                            <DrawerTitle className="text-2xl font-black uppercase italic text-center tracking-tighter text-slate-900">
+                              Filter Ras
+                            </DrawerTitle>
+                          </DrawerHeader>
+                          <div className="px-8 py-6 max-h-[50vh] overflow-y-auto">
+                            <BreedFilters
+                              selectedTraits={selectedTraits}
+                              onTraitChange={(t) =>
+                                setSelectedTraits((p) =>
+                                  p.includes(t) ? p.filter((x) => x !== t) : [...p, t]
+                                )
+                              }
+                            />
+                          </div>
+                          <DrawerFooter className="flex flex-row gap-4 p-8 border-t border-slate-50">
+                            <Button onClick={resetFilters} variant="ghost" className="flex-1 rounded-2xl font-bold h-14">
+                              Reset
+                            </Button>
+                            <DrawerClose asChild>
+                              <Button className="flex-1 rounded-2xl font-black uppercase tracking-widest bg-slate-900 h-14 text-white">
+                                Selesai
+                              </Button>
+                            </DrawerClose>
+                          </DrawerFooter>
+                        </div>
+                      </DrawerContent>
+                    </Drawer>
+                  </div>
+
+                  <div className="relative flex-1">
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                    <Input
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Cari ras kucing..."
+                      className="h-14 pl-14 pr-14 rounded-full bg-slate-50 border-0 focus-visible:bg-white focus-visible:ring-0 focus-visible:shadow-xl transition-all font-medium text-base"
+                    />
+                    {searchTerm && (
+                      <button
+                        onClick={() => setSearchTerm("")}
+                        className="absolute right-5 top-1/2 -translate-y-1/2 p-2 hover:bg-slate-200 rounded-full transition-colors"
+                      >
+                        <X className="h-5 w-5 text-slate-400 hover:text-slate-600" />
+                      </button>
                     )}
-                  >
-                    {type.label}
-                  </button>
-                ))}
+                  </div>
+
+                  <div className="hidden lg:block">
+                    {(searchTerm || selectedTraits.length > 0 || selectedCoat !== "all") && (
+                      <Button
+                        onClick={resetFilters}
+                        variant="ghost"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-primary gap-2"
+                      >
+                        <RotateCcw className="h-3 w-3" /> Reset
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto scrollbar-hide">
+                  <div className="flex gap-3 pb-1">
+                    {COAT_TYPES.map((type) => (
+                      <button
+                        key={type.id}
+                        onClick={() => setSelectedCoat(type.id)}
+                        className={cn(
+                          "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 whitespace-nowrap shadow-sm",
+                          selectedCoat === type.id
+                            ? "bg-slate-900 text-white shadow-md scale-105"
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800"
+                        )}
+                      >
+                        {type.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between mb-12 border-b border-slate-100 pb-8 px-2 lg:px-0">
+            <div className="mt-12 flex items-center justify-between border-b border-slate-100 pb-8">
               <p className="text-slate-400 text-[11px] font-bold uppercase tracking-[0.3em]">
                 Ditemukan <span className="text-slate-900 font-black italic">{filteredBreeds.length}</span> Spesies Unik
               </p>
             </div>
 
             {filteredBreeds.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-12 px-2 lg:px-0">
-                {filteredBreeds.map((breed) => <BreedCard key={breed.id} breed={breed} />)}
+              <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-12">
+                {filteredBreeds.map((breed) => (
+                  <BreedCard key={breed.id} breed={breed} />
+                ))}
               </div>
             ) : (
-              <div className="py-40 text-center bg-slate-50/50 rounded-[5rem] border-2 border-dashed border-slate-100 mx-2 lg:mx-0">
-                <p className="text-slate-400 font-bold italic mb-4 text-lg">Tidak ditemukan ras yang sesuai kriteria.</p>
-                <Button onClick={resetFilters} variant="link" className="text-primary font-black uppercase tracking-[0.2em] text-[10px]">Cari Ulang Ras Lain</Button>
+              <div className="mt-20 py-40 text-center bg-slate-50/50 rounded-[5rem] border-2 border-dashed border-slate-100">
+                <p className="text-slate-400 font-bold italic mb-4 text-lg">
+                  Tidak ditemukan ras yang sesuai kriteria.
+                </p>
+                <Button
+                  onClick={resetFilters}
+                  variant="link"
+                  className="text-primary font-black uppercase tracking-[0.2em] text-[10px]"
+                >
+                  Cari Ulang Ras Lain
+                </Button>
               </div>
             )}
           </div>
         </div>
-      </section>
+      </div>
 
       {isScrolled && (
         <Button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-12 right-12 h-16 w-16 rounded-full shadow-2xl z-50 animate-in fade-in zoom-in duration-500 bg-slate-900 hover:bg-primary transition-all active:scale-90"
+          className="fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full shadow-xl shadow-slate-200/50 bg-slate-900 hover:bg-primary text-white transition-all duration-300 active:scale-90"
           size="icon"
         >
-          <ChevronUp className="h-7 w-7 text-white" />
+          <ChevronUp className="h-5 w-5" />
         </Button>
       )}
     </main>

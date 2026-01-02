@@ -1,47 +1,47 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { PawPrint, User, Menu, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import ModeToggle from "@/components/mode-toggle"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import Link from "next/link";
+import { PawPrint, User, Menu, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import ModeToggle from "@/components/mode-toggle";
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuContent,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 
 export function SiteHeader() {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [mounted, setMounted] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
     return (
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 md:h-20" />
       </header>
-    )
+    );
   }
 
   return (
@@ -52,7 +52,7 @@ export function SiteHeader() {
             <div className="bg-primary rounded-xl p-1.5 md:p-2 shadow-lg shadow-primary/20 transition-transform group-hover:rotate-12 duration-300">
               <PawPrint className="h-5 w-5 md:h-6 md:w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-xl font-black tracking-tighter">
+            <h1 className="text-xl font-black tracking-tighter italic">
               KucingKita<span className="text-primary">.id</span>
             </h1>
           </Link>
@@ -60,20 +60,34 @@ export function SiteHeader() {
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent font-bold")}>
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "bg-transparent font-bold"
+                  )}
+                >
                   <Link href="/ras-kucing">Ras Kucing</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent font-bold">Anabul Care</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent font-bold">
+                  Anabul Care
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <MegaMenuContent />
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent font-bold")}>
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "bg-transparent font-bold"
+                  )}
+                >
                   <Link href="/komunitas">Komunitas</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -94,39 +108,69 @@ export function SiteHeader() {
                     <Menu className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-full sm:w-[400px] p-0 flex flex-col border-l-0 rounded-l-[2rem]">
-                  <SheetHeader className="p-6 border-b">
+
+                <SheetContent
+                  side="right"
+                  className="w-[85%] max-w-[380px] p-0 flex flex-col border-l rounded-none"
+                >
+                  <SheetHeader className="p-6 border-b text-left">
                     <SheetTitle className="flex items-center gap-2">
-                      <PawPrint className="h-6 w-6 text-primary" />
-                      <span className="font-black">KucingKita.id</span>
+                      <PawPrint className="h-5 w-5 text-primary" />
+                      <span className="font-black italic">KucingKita.id</span>
                     </SheetTitle>
                   </SheetHeader>
-                  
-                  <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                    <nav className="flex flex-col space-y-4">
-                      <Link href="/ras-kucing" onClick={() => setIsOpen(false)} className="text-2xl font-bold px-2">Ras Kucing</Link>
-                      
-                      <Collapsible className="space-y-2">
-                        <CollapsibleTrigger className="flex w-full items-center justify-between px-2 py-2 text-2xl font-bold hover:text-primary transition-colors group">
+
+                  <div className="flex-1 overflow-y-auto p-6">
+                    <nav className="flex flex-col space-y-2">
+                      <Link
+                        href="/ras-kucing"
+                        onClick={() => setIsOpen(false)}
+                        className="text-lg font-bold p-3 rounded-xl hover:bg-muted transition-colors"
+                      >
+                        Ras Kucing
+                      </Link>
+
+                      <Collapsible className="w-full">
+                        <CollapsibleTrigger className="flex w-full items-center justify-between p-3 text-lg font-bold hover:bg-muted rounded-xl transition-colors group">
                           Anabul Care
-                          <ChevronDown className="h-6 w-6 transition-transform group-data-[state=open]:rotate-180" />
+                          <ChevronDown className="h-5 w-5 transition-transform group-data-[state=open]:rotate-180" />
                         </CollapsibleTrigger>
-                        <CollapsibleContent className="pl-4 pr-2 pt-2 pb-4 space-y-4 bg-muted/30 rounded-3xl mt-2 animate-in slide-in-from-top-2 duration-300">
-                           <ul className="grid gap-4">
-                              <MobileListItem title="Nutrisi & Diet" href="/nutrisi" onClick={() => setIsOpen(false)} />
-                              <MobileListItem title="Kesehatan Vet" href="/kesehatan" onClick={() => setIsOpen(false)} />
-                              <MobileListItem title="Wellness" href="/wellness" onClick={() => setIsOpen(false)} />
-                              <MobileListItem title="Perilaku" href="/behaviour" onClick={() => setIsOpen(false)} />
-                           </ul>
+                        <CollapsibleContent className="px-4 py-2 space-y-1 animate-in slide-in-from-top-1">
+                          <MobileListItem
+                            title="Nutrisi & Diet"
+                            href="/nutrisi"
+                            onClick={() => setIsOpen(false)}
+                          />
+                          <MobileListItem
+                            title="Kesehatan Vet"
+                            href="/kesehatan"
+                            onClick={() => setIsOpen(false)}
+                          />
+                          <MobileListItem
+                            title="Wellness"
+                            href="/wellness"
+                            onClick={() => setIsOpen(false)}
+                          />
+                          <MobileListItem
+                            title="Perilaku"
+                            href="/behaviour"
+                            onClick={() => setIsOpen(false)}
+                          />
                         </CollapsibleContent>
                       </Collapsible>
 
-                      <Link href="/komunitas" onClick={() => setIsOpen(false)} className="text-2xl font-bold px-2">Komunitas</Link>
+                      <Link
+                        href="/komunitas"
+                        onClick={() => setIsOpen(false)}
+                        className="text-lg font-bold p-3 rounded-xl hover:bg-muted transition-colors"
+                      >
+                        Komunitas
+                      </Link>
                     </nav>
                   </div>
 
-                  <div className="p-6 border-t mt-auto">
-                    <Button className="w-full h-14 rounded-2xl font-black text-lg shadow-xl shadow-primary/20 text-primary-foreground">
+                  <div className="p-6 bg-background border-t">
+                    <Button className="w-full h-12 rounded-xl font-black shadow-lg shadow-primary/20 text-primary-foreground">
                       MASUK
                     </Button>
                   </div>
@@ -137,16 +181,17 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 function MegaMenuContent() {
   return (
     <div className="w-[700px] p-6">
       <div className="grid grid-cols-2 gap-6">
-        {/* Left Side - Menu Items */}
         <div className="space-y-2">
-          <h3 className="text-lg font-black text-foreground mb-4 px-3">Anabul Care</h3>
+          <h3 className="text-lg font-black text-foreground mb-4 px-3 italic">
+            Anabul Care
+          </h3>
           <ul className="space-y-1">
             <ListItem title="Nutrisi & Diet" href="/nutrisi">
               Makanan terbaik untuk kucing Anda
@@ -162,55 +207,61 @@ function MegaMenuContent() {
             </ListItem>
           </ul>
         </div>
-
-       
         <div className="flex items-center justify-center">
-          <div className="w-full h-[280px] bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden relative">
-            
-            <div className="absolute inset-0 flex items-center justify-center">
-              <PawPrint className="h-16 w-16 text-slate-300 dark:text-slate-700" />
-            </div>
-           
-            <div className="absolute bottom-4 left-4 right-4 text-center">
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
-                Image Preview Area
-              </p>
-            </div>
+          <div className="w-full h-[280px] bg-slate-50 dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative">
+            <PawPrint className="h-12 w-12 text-slate-200 dark:text-slate-800 mb-2" />
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
+              Anabul Care Center
+            </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function ListItem({ title, children, href }: { title: string; children: string; href: string }) {
+function ListItem({
+  title,
+  children,
+  href,
+}: {
+  title: string;
+  children: string;
+  href: string;
+}) {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <Link 
-          href={href} 
-          className="block select-none space-y-1 rounded-xl p-3 transition-all hover:bg-primary/5 hover:text-primary group"
+        <Link
+          href={href}
+          className="block select-none space-y-1 rounded-xl p-3 transition-all hover:bg-primary/5 hover:text-primary group border border-transparent hover:border-primary/10"
         >
-          <div className="text-sm font-bold tracking-tight group-hover:text-primary">
-            {title}
-          </div>
+          <div className="text-sm font-bold tracking-tight">{title}</div>
           <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
             {children}
           </p>
         </Link>
       </NavigationMenuLink>
     </li>
-  )
+  );
 }
 
-function MobileListItem({ title, href, onClick }: { title: string; href: string, onClick: () => void }) {
+function MobileListItem({
+  title,
+  href,
+  onClick,
+}: {
+  title: string;
+  href: string;
+  onClick: () => void;
+}) {
   return (
-    <Link 
-      href={href} 
-      onClick={onClick} 
-      className="block px-2 py-1 text-base font-bold text-muted-foreground hover:text-primary transition-colors"
+    <Link
+      href={href}
+      onClick={onClick}
+      className="block px-4 py-3 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
     >
       {title}
     </Link>
-  )
+  );
 }
