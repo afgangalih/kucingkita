@@ -9,7 +9,7 @@ export function HeroSection() {
     <div className="container mx-auto px-4 py-16 md:py-28 lg:py-36">
       <div className="flex flex-col items-center space-y-12 text-center">
         
-        {/* Hero Section - KEMBALI KE DESAIN ASLI ANDA */}
+        
         <div className="space-y-6">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
             Selamat Datang di <span className="text-primary">KucingKita.id</span>
@@ -20,7 +20,7 @@ export function HeroSection() {
           </p>
         </div>
 
-        {/* MODERNISED BUTTONS - KEMBALI KE DESAIN ASLI ANDA */}
+        
         <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
           <Button 
             size="lg" 
@@ -41,7 +41,7 @@ export function HeroSection() {
           </Button>
         </div>
 
-        {/* Feature Cards - TETAP MENGGUNAKAN STRUKTUR ASLI ANDA */}
+        
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 mt-12 w-full max-w-6xl mx-auto">
           <Card className="group p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 bg-card/50 backdrop-blur-sm">
             <div className="mb-5 p-4 rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors">

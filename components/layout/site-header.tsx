@@ -163,14 +163,14 @@ function MegaMenuContent() {
           </ul>
         </div>
 
-        {/* Right Side - Image Placeholder */}
+       
         <div className="flex items-center justify-center">
           <div className="w-full h-[280px] bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden relative">
-            {/* Placeholder untuk gambar kucing */}
+            
             <div className="absolute inset-0 flex items-center justify-center">
               <PawPrint className="h-16 w-16 text-slate-300 dark:text-slate-700" />
             </div>
-            {/* Text overlay untuk preview */}
+           
             <div className="absolute bottom-4 left-4 right-4 text-center">
               <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
                 Image Preview Area

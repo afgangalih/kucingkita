@@ -11,7 +11,7 @@ export function FeatureBreed() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             
-            {/* SISI KIRI: TEXT CONTENT */}
+            
             <div className="space-y-6 animate-in fade-in slide-in-from-left duration-700">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 leading-[1.1]">
                 Pelajari Tentang <br />
@@ -34,12 +34,12 @@ export function FeatureBreed() {
               </div>
             </div>
 
-            {/* SISI KANAN: IMAGE VISUAL */}
+            
             <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center animate-in fade-in slide-in-from-right duration-700">
-              {/* Dekorasi Aksen Circle di belakang gambar */}
+              
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
               
-              {/* Gambar Kucing */}
+              
               <div className="relative w-full h-full transform hover:scale-105 transition-transform duration-500 ease-out">
                 <Image
                   src="/images/hero-cats.png"
