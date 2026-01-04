@@ -1,0 +1,98 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Breed {
+  id                String             @id @default(uuid())
+  slug              String             @unique
+  name              String
+  image             String
+  coatType          String
+  characteristics   String[]
+  description       String
+  officialName      String
+  otherName         String
+  origin            String
+  
+  // Relation to other tables
+  stats             BreedStats?
+  ratings           BreedRatings?
+  editorialSections EditorialSection[]
+  facts             Fact[]
+  faqs              Faq[]
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+model BreedStats {
+  id           String @id @default(uuid())
+  breedId      String @unique
+  breed        Breed  @relation(fields: [breedId], references: [id], onDelete: Cascade)
+  maleHeight   String
+  femaleHeight String
+  maleWeight   String
+  femaleWeight String
+  growth       String
+  adult        String
+  mature       String
+  senior       String
+}
+
+model BreedRatings {
+  id          String @id @default(uuid())
+  breedId     String @unique
+  breed       Breed  @relation(fields: [breedId], references: [id], onDelete: Cascade)
+  coatLength  Int
+  shedding    Int
+  grooming    Int
+  energy      Int
+  vocal       Int
+  family      Int
+  otherPets   Int
+  aloneTime   Int
+  environment Int
+}
+
+model EditorialSection {
+  id      String @id @default(uuid())
+  breedId String
+  breed   Breed  @relation(fields: [breedId], references: [id], onDelete: Cascade)
+  title   String
+  subtitle String
+  content String @db.Text
+  order   Int
+}
+
+model Fact {
+  id          String @id @default(uuid())
+  breedId     String
+  breed       Breed  @relation(fields: [breedId], references: [id], onDelete: Cascade)
+  title       String
+  description String @db.Text
+  order       Int
+}
+
+model Faq {
+  id       String @id @default(uuid())
+  breedId  String
+  breed    Breed  @relation(fields: [breedId], references: [id], onDelete: Cascade)
+  question String
+  answer   String @db.Text
+  order    Int
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  category    String   // 'dry-food', 'wet-food', 'vitamin', etc
+  name        String
+  brand       String
+  image       String
+  description String   @db.Text
+  link        String
+  createdAt   DateTime @default(now())
+}
