@@ -1,5 +1,6 @@
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -18,13 +19,11 @@ model Breed {
   otherName         String
   origin            String
   
-  // Relation to other tables
   stats             BreedStats?
   ratings           BreedRatings?
   editorialSections EditorialSection[]
   facts             Fact[]
   faqs              Faq[]
-
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 }
@@ -88,7 +87,7 @@ model Faq {
 
 model Product {
   id          String   @id @default(uuid())
-  category    String   // 'dry-food', 'wet-food', 'vitamin', etc
+  category    String
   name        String
   brand       String
   image       String

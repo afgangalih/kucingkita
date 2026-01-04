@@ -2,12 +2,16 @@
 import { AppSidebar } from "@/components/admin-sidebar"
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Toaster } from "sonner"; // 1. Import sudah benar
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="bg-[#fcfcfc]">
+        {/* 2. Toaster diletakkan di sini agar melayang di atas semua konten */}
+        <Toaster position="top-center" richColors closeButton />
+        
         <header className="sticky top-0 z-10 flex h-20 shrink-0 items-center bg-white/50 px-6 backdrop-blur-md">
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-4">
@@ -20,6 +24,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
           </div>
         </header>
+        
         <main className="p-6 md:p-10">
           <div className="mx-auto max-w-7xl">
             {children}
