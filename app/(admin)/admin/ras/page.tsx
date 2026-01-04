@@ -94,9 +94,11 @@ export default async function BreedListPage() {
 
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-blue-600">
-                        <Pencil size={18} />
-                      </Button>
+                      <Link href={`/admin/ras/${breed.slug}/edit`}>
+                        <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-blue-600">
+                          <Pencil size={18} />
+                        </Button>
+                      </Link>
                     </TooltipTrigger>
                     <TooltipContent className="rounded-lg bg-slate-900 text-[10px] font-bold uppercase tracking-widest text-white">Edit Data</TooltipContent>
                   </Tooltip>
