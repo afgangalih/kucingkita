@@ -27,7 +27,7 @@ export default async function EditBreedPage({
         </p>
       </div>
 
-      {/* Kirim data ke Client Component */}
+      
       <EditFormClient breed={breed} />
     </div>
   );

@@ -22,7 +22,7 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
         </p>
       </div>
       
-      {/* Baris 1: Nama dan Slug */}
+      
       <div className="grid gap-8 md:grid-cols-2">
         <FormField
           control={control}
@@ -52,7 +52,7 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
         />
       </div>
 
-      {/* Baris 2: Nama Resmi dan Asal */}
+      
       <div className="grid gap-8 md:grid-cols-2">
         <FormField
           control={control}
@@ -82,7 +82,7 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
         />
       </div>
 
-      {/* Baris 3: Tipe Bulu */}
+     
       <FormField
         control={control}
         name={"coatType" as Path<T>}
@@ -106,7 +106,7 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
         )}
       />
 
-      {/* Baris 4: Deskripsi */}
+      
       <FormField
         control={control}
         name={"description" as Path<T>}

@@ -32,14 +32,14 @@ export function EditFormClient({ breed }: { breed: Breed }) {
   async function onSubmit(data: BreedFormValues) {
     setIsPending(true);
     
-    // 1. Munculkan toast loading instan (UX Standar Industri)
+   
     const toastId = toast.loading(`Sedang memperbarui data ${breed.name}...`);
 
     try {
       const result = await updateBreed(breed.id, data);
       
       if (result.success) {
-        // 2. Update toast loading menjadi sukses
+       
         toast.success(`Berhasil! Data ${result.name} telah diperbarui`, {
           id: toastId,
         });
@@ -47,7 +47,7 @@ export function EditFormClient({ breed }: { breed: Breed }) {
         router.push("/admin/ras");
         router.refresh();
       } else {
-        // 3. Update toast loading menjadi error
+        
         toast.error(result.error, { id: toastId });
       }
     } catch (error) {
