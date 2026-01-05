@@ -9,9 +9,9 @@ export default async function EditBreedPage({
 }) {
   const { slug } = await params;
 
- 
   const breed = await prisma.breed.findUnique({
     where: { slug },
+    include: { ratings: true } 
   });
 
   if (!breed) notFound();
@@ -26,8 +26,6 @@ export default async function EditBreedPage({
           Perbarui informasi ras {breed.name}
         </p>
       </div>
-
-      
       <EditFormClient breed={breed} />
     </div>
   );

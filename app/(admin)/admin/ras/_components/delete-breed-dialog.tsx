@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { deleteBreed } from "../_actions/breed-actions";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -58,7 +57,7 @@ export function DeleteBreedDialog({ id, name }: { id: string; name: string }) {
         </TooltipContent>
       </Tooltip>
 
-      <AlertDialogContent className="max-w-[450px] rounded-[3rem] border-none p-12 shadow-2xl">
+      <AlertDialogContent className="max-w-sm rounded-3xl border-none p-12 shadow-2xl">
         <AlertDialogHeader className="flex flex-col items-center text-center">
           <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-red-50 text-red-500">
             <AlertTriangle size={40} />
@@ -67,7 +66,9 @@ export function DeleteBreedDialog({ id, name }: { id: string; name: string }) {
             Konfirmasi <span className="text-red-600">Hapus</span>
           </AlertDialogTitle>
           <AlertDialogDescription className="mt-2 text-sm font-medium leading-relaxed text-slate-500">
-            Apakah Anda yakin ingin menghapus ras <span className="font-black text-slate-900">{name}</span>? Data ini akan hilang permanen.
+            Apakah Anda yakin ingin menghapus ras{" "}
+            <span className="font-black text-slate-900">{name}</span>? Data ini
+            akan hilang permanen.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -80,7 +81,11 @@ export function DeleteBreedDialog({ id, name }: { id: string; name: string }) {
             disabled={isPending}
             className="h-14 flex-1 rounded-2xl bg-red-600 font-black uppercase tracking-widest text-[10px] text-white hover:bg-red-700 shadow-lg shadow-red-100"
           >
-            {isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : "YA, HAPUS"}
+            {isPending ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              "YA, HAPUS"
+            )}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
