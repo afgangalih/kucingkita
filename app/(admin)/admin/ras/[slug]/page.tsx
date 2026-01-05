@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { BreedDetailHeader } from "./_components/breed-detail-header";
 import { BreedInfoCards } from "./_components/breed-info-cards";
+import { BreedRatingsDisplay } from "./_components/breed-ratings-display";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -16,7 +17,6 @@ export default async function BreedDetailPage({ params }: PageProps) {
   const breed = await prisma.breed.findUnique({
     where: { slug },
     include: {
-      stats: true,
       ratings: true,
     },
   });
@@ -24,7 +24,7 @@ export default async function BreedDetailPage({ params }: PageProps) {
   if (!breed) notFound();
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/ras">
@@ -49,13 +49,14 @@ export default async function BreedDetailPage({ params }: PageProps) {
         </Link>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-8">
+      <BreedInfoCards breed={breed} />
+
+      <div className="grid gap-8 lg:grid-cols-5 items-start">
+        <div className="lg:col-span-3">
           <BreedDetailHeader breed={breed} />
         </div>
-
-        <div className="space-y-8">
-          <BreedInfoCards breed={breed} />
+        <div className="lg:col-span-2">
+          <BreedRatingsDisplay ratings={breed.ratings} />
         </div>
       </div>
     </div>
