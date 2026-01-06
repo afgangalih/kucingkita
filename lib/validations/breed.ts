@@ -7,8 +7,8 @@ export const breedSchema = z.object({
   officialName: z.string().min(1, "Nama resmi wajib diisi"),
   origin: z.string().min(1, "Asal ras wajib diisi"),
   coatType: z.enum(["pendek", "sedang", "panjang"]),
-  
- 
+  image: z.string().min(1, "Foto ras wajib diunggah"),
+
   grooming: z.number().min(1).max(5),
   shedding: z.number().min(1).max(5),
   energy: z.number().min(1).max(5),
@@ -18,6 +18,12 @@ export const breedSchema = z.object({
   aloneTime: z.number().min(1).max(5),
   coatLength: z.number().min(1).max(5),
   environment: z.number().min(1).max(5),
+  faqs: z.array(
+    z.object({
+      question: z.string().min(1, "Pertanyaan wajib diisi"),
+      answer: z.string().min(1, "Jawaban wajib diisi"),
+    })
+  ),
 });
 
 export type BreedFormValues = z.infer<typeof breedSchema>;

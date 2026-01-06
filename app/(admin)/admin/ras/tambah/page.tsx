@@ -33,6 +33,7 @@ export default function AddBreedPage() {
       aloneTime: 3,
       coatLength: 3,
       environment: 3,
+      faqs: [],
     },
   });
 

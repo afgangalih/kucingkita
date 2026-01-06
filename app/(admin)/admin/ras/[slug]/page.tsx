@@ -6,6 +6,7 @@ import { ArrowLeft, Pencil } from "lucide-react";
 import { BreedDetailHeader } from "./_components/breed-detail-header";
 import { BreedInfoCards } from "./_components/breed-info-cards";
 import { BreedRatingsDisplay } from "./_components/breed-ratings-display";
+import { BreedFaqDisplay } from "./_components/breed-faq-display";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,9 @@ export default async function BreedDetailPage({ params }: PageProps) {
     where: { slug },
     include: {
       ratings: true,
+      faqs: {
+        orderBy: { order: "asc" },
+      },
     },
   });
 
@@ -52,9 +56,11 @@ export default async function BreedDetailPage({ params }: PageProps) {
       <BreedInfoCards breed={breed} />
 
       <div className="grid gap-8 lg:grid-cols-5 items-start">
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 space-y-8">
           <BreedDetailHeader breed={breed} />
+          <BreedFaqDisplay faqs={breed.faqs} />
         </div>
+
         <div className="lg:col-span-2">
           <BreedRatingsDisplay ratings={breed.ratings} />
         </div>

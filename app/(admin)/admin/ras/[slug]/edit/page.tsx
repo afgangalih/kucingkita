@@ -11,7 +11,10 @@ export default async function EditBreedPage({
 
   const breed = await prisma.breed.findUnique({
     where: { slug },
-    include: { ratings: true } 
+    include: { 
+      ratings: true,
+      faqs: true 
+    } 
   });
 
   if (!breed) notFound();

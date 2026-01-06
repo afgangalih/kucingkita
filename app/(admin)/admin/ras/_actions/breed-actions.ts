@@ -9,9 +9,16 @@ export async function createBreed(values: BreedFormValues) {
   const validated = breedSchema.safeParse(values);
   if (!validated.success) return { error: "Data tidak valid." };
 
-  const { 
-    name, slug, description, officialName, origin, coatType,
-    ...ratings 
+  const {
+    name,
+    slug,
+    description,
+    officialName,
+    origin,
+    coatType,
+    image,
+    faqs,
+    ...ratings
   } = validated.data;
 
   try {
@@ -23,11 +30,18 @@ export async function createBreed(values: BreedFormValues) {
         officialName: officialName || name,
         origin: origin || "-",
         coatType,
-        image: "/images/breeds/default.png",
+        image,
         otherName: "",
         characteristics: [],
         ratings: {
-          create: { ...ratings } 
+          create: { ...ratings },
+        },
+        faqs: {
+          create: faqs.map((faq, index) => ({
+            question: faq.question,
+            answer: faq.answer,
+            order: index,
+          })),
         },
       },
     });
@@ -44,9 +58,16 @@ export async function updateBreed(id: string, values: BreedFormValues) {
   const validated = breedSchema.safeParse(values);
   if (!validated.success) return { success: false, error: "Data tidak valid." };
 
-  const { 
-    name, slug, description, officialName, origin, coatType,
-    ...ratings 
+  const {
+    name,
+    slug,
+    description,
+    officialName,
+    origin,
+    coatType,
+    image,
+    faqs,
+    ...ratings
   } = validated.data;
 
   try {
@@ -59,11 +80,20 @@ export async function updateBreed(id: string, values: BreedFormValues) {
         officialName: officialName || name,
         origin: origin || "-",
         coatType,
+        image,
         ratings: {
           upsert: {
             create: { ...ratings },
             update: { ...ratings },
           },
+        },
+        faqs: {
+          deleteMany: {},
+          create: faqs.map((faq, index) => ({
+            question: faq.question,
+            answer: faq.answer,
+            order: index,
+          })),
         },
       },
     });

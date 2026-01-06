@@ -10,14 +10,18 @@ import { toast } from "sonner";
 import { Loader2, Save, ChevronLeft } from "lucide-react";
 import { BasicInfoForm } from "../../../_components/basic-info-form";
 import { BreedRatingsForm } from "../../../_components/breed-ratings-form";
+import { BreedFaqForm } from "../../../_components/breed-faq-form"; // pastikan sudah diimport
 import { updateBreed } from "../../../_actions/breed-actions";
 import { useRouter } from "next/navigation";
-import { Breed, BreedRatings } from "@prisma/client";
+import { Breed, BreedRatings, Faq } from "@prisma/client";
 
 export function EditFormClient({
   breed,
 }: {
-  breed: Breed & { ratings: BreedRatings | null };
+  breed: Breed & {
+    ratings: BreedRatings | null;
+    faqs: Faq[];
+  };
 }) {
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
@@ -27,6 +31,7 @@ export function EditFormClient({
     defaultValues: {
       name: breed.name ?? "",
       slug: breed.slug ?? "",
+      image: breed.image ?? "",
       description: breed.description ?? "",
       officialName: breed.officialName ?? "",
       origin: breed.origin ?? "",
@@ -40,23 +45,25 @@ export function EditFormClient({
       aloneTime: breed.ratings?.aloneTime ?? 3,
       coatLength: breed.ratings?.coatLength ?? 3,
       environment: breed.ratings?.environment ?? 3,
+      faqs: breed.faqs ?? [],
     },
   });
 
   async function onSubmit(data: BreedFormValues) {
     setIsPending(true);
     const toastId = toast.loading(`Memperbarui ${breed.name}...`);
+
     try {
       const result = await updateBreed(breed.id, data);
       if (result.success) {
         toast.success("Berhasil diperbarui", { id: toastId });
-        router.push("/admin/ras");
         router.refresh();
+        router.push("/admin/ras");
       } else {
         toast.error(result.error ?? "Gagal", { id: toastId });
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan", { id: toastId });
+      toast.error("Terjadi kesalahan sistem", { id: toastId });
     } finally {
       setIsPending(false);
     }
@@ -77,6 +84,13 @@ export function EditFormClient({
             Karakteristik & Rating
           </h2>
           <BreedRatingsForm control={form.control} />
+        </div>
+
+        <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
+          <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
+            Daftar Tanya Jawab
+          </h2>
+          <BreedFaqForm control={form.control} />
         </div>
 
         <div className="flex items-center justify-between gap-4">
