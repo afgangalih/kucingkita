@@ -7,6 +7,8 @@ import { BreedDetailHeader } from "./_components/breed-detail-header";
 import { BreedInfoCards } from "./_components/breed-info-cards";
 import { BreedRatingsDisplay } from "./_components/breed-ratings-display";
 import { BreedFaqDisplay } from "./_components/breed-faq-display";
+import { BreedEditorialDisplay } from "./_components/breed-editorial-display";
+import { BreedEditorialAdminDisplay } from "./_components/breed-editorial-admin-display";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,6 +22,9 @@ export default async function BreedDetailPage({ params }: PageProps) {
     include: {
       ratings: true,
       faqs: {
+        orderBy: { order: "asc" },
+      },
+      editorialSections: {
         orderBy: { order: "asc" },
       },
     },
@@ -58,6 +63,7 @@ export default async function BreedDetailPage({ params }: PageProps) {
       <div className="grid gap-8 lg:grid-cols-5 items-start">
         <div className="lg:col-span-3 space-y-8">
           <BreedDetailHeader breed={breed} />
+          <BreedEditorialAdminDisplay sections={breed.editorialSections} />
           <BreedFaqDisplay faqs={breed.faqs} />
         </div>
 
