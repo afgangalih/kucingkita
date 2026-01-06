@@ -27,6 +27,7 @@ export function EditFormClient({
     defaultValues: {
       name: breed.name ?? "",
       slug: breed.slug ?? "",
+      image: breed.image ?? "", 
       description: breed.description ?? "",
       officialName: breed.officialName ?? "",
       origin: breed.origin ?? "",
@@ -50,13 +51,13 @@ export function EditFormClient({
       const result = await updateBreed(breed.id, data);
       if (result.success) {
         toast.success("Berhasil diperbarui", { id: toastId });
+        router.refresh(); // Sync data server terbaru
         router.push("/admin/ras");
-        router.refresh();
       } else {
         toast.error(result.error ?? "Gagal", { id: toastId });
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan", { id: toastId });
+      toast.error("Terjadi kesalahan sistem", { id: toastId });
     } finally {
       setIsPending(false);
     }
@@ -88,6 +89,7 @@ export function EditFormClient({
           >
             <ChevronLeft className="mr-2 h-5 w-5" /> KEMBALI
           </Button>
+
           <Button
             type="submit"
             disabled={isPending}

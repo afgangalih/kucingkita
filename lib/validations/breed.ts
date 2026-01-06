@@ -8,6 +8,7 @@ export const breedSchema = z.object({
   origin: z.string().min(1, "Asal ras wajib diisi"),
   coatType: z.enum(["pendek", "sedang", "panjang"]),
   
+ image: z.string().min(1, "Foto ras wajib diunggah"),
  
   grooming: z.number().min(1).max(5),
   shedding: z.number().min(1).max(5),

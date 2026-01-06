@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ImageUpload } from "./image-upload";
 
 interface BasicInfoFormProps<T extends FieldValues> {
   control: Control<T>;
@@ -25,6 +26,26 @@ interface BasicInfoFormProps<T extends FieldValues> {
 export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormProps<T>) {
   return (
     <div className="grid gap-6">
+      <FormField
+        control={control}
+        name={"image" as Path<T>}
+        render={({ field }) => (
+          <FormItem className="mb-4">
+            <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+              Foto Ras
+            </FormLabel>
+            <FormControl>
+              <ImageUpload 
+                value={field.value}
+                onChange={field.onChange} 
+                onRemove={() => field.onChange("")} 
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       <div className="grid gap-6 md:grid-cols-2">
         <FormField
           control={control}
@@ -33,7 +54,11 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
             <FormItem>
               <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400">Nama Ras</FormLabel>
               <FormControl>
-                <Input placeholder="Contoh: Maine Coon" className="h-12 rounded-xl border-2 focus-visible:ring-primary" {...field} />
+                <Input 
+                  placeholder="Contoh: Maine Coon" 
+                  className="h-12 rounded-xl border-2 focus-visible:ring-primary" 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,7 +137,11 @@ export function BasicInfoForm<T extends FieldValues>({ control }: BasicInfoFormP
           <FormItem>
             <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400">Deskripsi Lengkap</FormLabel>
             <FormControl>
-              <Textarea placeholder="Tuliskan deskripsi mendalam tentang ras ini..." className="min-h-[120px] rounded-2xl border-2 p-4" {...field} />
+              <Textarea 
+                placeholder="Tuliskan deskripsi mendalam tentang ras ini..." 
+                className="min-h-[120px] rounded-2xl border-2 p-4" 
+                {...field} 
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

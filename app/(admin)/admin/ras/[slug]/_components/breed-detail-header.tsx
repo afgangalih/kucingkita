@@ -3,6 +3,7 @@
 import { Cat, MapPin, Info, Scissors, Wind } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Breed, BreedRatings } from "@prisma/client"; 
+import Image from "next/image";
 
 interface BreedDetailHeaderProps {
   breed: Breed & { ratings: BreedRatings | null };
@@ -12,13 +13,25 @@ export function BreedDetailHeader({ breed }: BreedDetailHeaderProps) {
   return (
     <div className="rounded-[2.5rem] border-2 border-slate-50 bg-white p-8 shadow-sm h-full">
       <div className="flex items-center gap-6 border-b border-slate-50 pb-8">
-        <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[2rem] bg-slate-900 text-white shadow-xl shadow-slate-200">
-          <Cat size={40} />
+        <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[2rem] bg-slate-900 text-white shadow-xl shadow-slate-200">
+          {breed.image ? (
+            <Image 
+              src={breed.image} 
+              alt={breed.name} 
+              fill 
+              className="object-cover"
+              unoptimized
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <Cat size={40} />
+            </div>
+          )}
         </div>
         
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900">
+            <h2 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900 leading-none">
               {breed.name}
             </h2>
             <Badge className="bg-primary text-white border-none px-3 py-1 rounded-lg text-[9px] font-black uppercase">
