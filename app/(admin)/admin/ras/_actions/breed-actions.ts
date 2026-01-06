@@ -16,7 +16,8 @@ export async function createBreed(values: BreedFormValues) {
     officialName,
     origin,
     coatType,
-    image, 
+    image,
+    faqs,
     ...ratings
   } = validated.data;
 
@@ -29,11 +30,18 @@ export async function createBreed(values: BreedFormValues) {
         officialName: officialName || name,
         origin: origin || "-",
         coatType,
-        image, 
+        image,
         otherName: "",
         characteristics: [],
         ratings: {
           create: { ...ratings },
+        },
+        faqs: {
+          create: faqs.map((faq, index) => ({
+            question: faq.question,
+            answer: faq.answer,
+            order: index,
+          })),
         },
       },
     });
@@ -58,6 +66,7 @@ export async function updateBreed(id: string, values: BreedFormValues) {
     origin,
     coatType,
     image,
+    faqs,
     ...ratings
   } = validated.data;
 
@@ -77,6 +86,14 @@ export async function updateBreed(id: string, values: BreedFormValues) {
             create: { ...ratings },
             update: { ...ratings },
           },
+        },
+        faqs: {
+          deleteMany: {},
+          create: faqs.map((faq, index) => ({
+            question: faq.question,
+            answer: faq.answer,
+            order: index,
+          })),
         },
       },
     });
