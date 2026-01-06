@@ -9,7 +9,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Loader2, Save } from "lucide-react";
 import { BasicInfoForm } from "../_components/basic-info-form";
-import { BreedRatingsForm } from "../_components/breed-ratings-form"; // Import ini
+import { BreedRatingsForm } from "../_components/breed-ratings-form";
+import { BreedFaqForm } from "../_components/breed-faq-form";
+import { BreedEditorialForm } from "../_components/breed-editorial-form";
 import { createBreed } from "../_actions/breed-actions";
 
 export default function AddBreedPage() {
@@ -34,6 +36,7 @@ export default function AddBreedPage() {
       coatLength: 3,
       environment: 3,
       faqs: [],
+      editorialSections: [],
     },
   });
 
@@ -60,7 +63,6 @@ export default function AddBreedPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-         
           <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
             <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
               Informasi Dasar
@@ -68,7 +70,6 @@ export default function AddBreedPage() {
             <BasicInfoForm control={form.control} />
           </div>
 
-          
           <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
             <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
               Karakteristik & Rating
@@ -76,12 +77,39 @@ export default function AddBreedPage() {
             <BreedRatingsForm control={form.control} />
           </div>
 
+          <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
+            <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
+              Daftar Tanya Jawab
+            </h2>
+            <BreedFaqForm control={form.control} />
+          </div>
+
+          <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
+            <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
+              Blok Konten Editorial
+            </h2>
+            <BreedEditorialForm control={form.control} />
+          </div>
+
           <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" className="h-14 rounded-2xl border-2 px-8 font-bold" onClick={() => window.history.back()}>
+            <Button
+              type="button"
+              variant="outline"
+              className="h-14 rounded-2xl border-2 px-8 font-bold"
+              onClick={() => window.history.back()}
+            >
               BATAL
             </Button>
-            <Button type="submit" className="h-14 rounded-2xl bg-slate-900 px-10 font-bold text-white shadow-xl shadow-slate-100" disabled={isPending}>
-              {isPending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}
+            <Button
+              type="submit"
+              className="h-14 rounded-2xl bg-slate-900 px-10 font-bold text-white shadow-xl shadow-slate-100"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <Save className="mr-2 h-5 w-5" />
+              )}
               SIMPAN DATA
             </Button>
           </div>

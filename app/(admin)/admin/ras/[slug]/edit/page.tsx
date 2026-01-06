@@ -2,19 +2,24 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { EditFormClient } from "./_components/edit-form-client";
 
-export default async function EditBreedPage({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function EditBreedPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
 
   const breed = await prisma.breed.findUnique({
     where: { slug },
-    include: { 
+    include: {
       ratings: true,
-      faqs: true 
-    } 
+      faqs: {
+        orderBy: { order: "asc" },
+      },
+      editorialSections: {
+        orderBy: { order: "asc" },
+      },
+    },
   });
 
   if (!breed) notFound();

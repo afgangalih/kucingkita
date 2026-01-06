@@ -18,10 +18,19 @@ export const breedSchema = z.object({
   aloneTime: z.number().min(1).max(5),
   coatLength: z.number().min(1).max(5),
   environment: z.number().min(1).max(5),
+
   faqs: z.array(
     z.object({
       question: z.string().min(1, "Pertanyaan wajib diisi"),
       answer: z.string().min(1, "Jawaban wajib diisi"),
+    })
+  ),
+
+  editorialSections: z.array(
+    z.object({
+      title: z.string().min(1, "Judul section wajib diisi"),
+      subtitle: z.string().min(1, "Sub-judul wajib diisi"),
+      content: z.string().min(10, "Konten minimal 10 karakter"),
     })
   ),
 });

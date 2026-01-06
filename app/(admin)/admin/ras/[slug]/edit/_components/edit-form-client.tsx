@@ -10,10 +10,11 @@ import { toast } from "sonner";
 import { Loader2, Save, ChevronLeft } from "lucide-react";
 import { BasicInfoForm } from "../../../_components/basic-info-form";
 import { BreedRatingsForm } from "../../../_components/breed-ratings-form";
-import { BreedFaqForm } from "../../../_components/breed-faq-form"; // pastikan sudah diimport
+import { BreedFaqForm } from "../../../_components/breed-faq-form";
+import { BreedEditorialForm } from "../../../_components/breed-editorial-form";
 import { updateBreed } from "../../../_actions/breed-actions";
 import { useRouter } from "next/navigation";
-import { Breed, BreedRatings, Faq } from "@prisma/client";
+import { Breed, BreedRatings, Faq, EditorialSection } from "@prisma/client";
 
 export function EditFormClient({
   breed,
@@ -21,6 +22,7 @@ export function EditFormClient({
   breed: Breed & {
     ratings: BreedRatings | null;
     faqs: Faq[];
+    editorialSections: EditorialSection[];
   };
 }) {
   const [isPending, setIsPending] = useState(false);
@@ -46,6 +48,7 @@ export function EditFormClient({
       coatLength: breed.ratings?.coatLength ?? 3,
       environment: breed.ratings?.environment ?? 3,
       faqs: breed.faqs ?? [],
+      editorialSections: breed.editorialSections ?? [],
     },
   });
 
@@ -91,6 +94,13 @@ export function EditFormClient({
             Daftar Tanya Jawab
           </h2>
           <BreedFaqForm control={form.control} />
+        </div>
+
+        <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
+          <h2 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-900">
+            Blok Konten Editorial
+          </h2>
+          <BreedEditorialForm control={form.control} />
         </div>
 
         <div className="flex items-center justify-between gap-4">
