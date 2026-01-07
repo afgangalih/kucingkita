@@ -85,13 +85,32 @@ model Faq {
   order    Int
 }
 
+
+enum ProductCategory {
+  WET_FOOD
+  DRY_FOOD
+  SUPPLEMENT
+  TREATS
+}
+
 model Product {
-  id          String   @id @default(uuid())
-  category    String
-  name        String
-  brand       String
+  id          String          @id @default(uuid())
+  slug        String          @unique
+  name        String          @db.VarChar(255)
+  brand       String          @db.VarChar(100)
+  category    ProductCategory
   image       String
-  description String   @db.Text
-  link        String
-  createdAt   DateTime @default(now())
+  description String          @db.Text
+  benefits    String          @db.Text
+  nutrition   String          @db.Text
+  sizes       String[]        
+  link        String          @db.Text
+  
+  isPublished Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([slug])
+  @@index([category])
+  @@index([brand])
 }
