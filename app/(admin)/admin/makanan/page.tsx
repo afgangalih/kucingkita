@@ -75,28 +75,28 @@ export default async function MakananPage() {
                   </td>
                   <td className="rounded-r-3xl bg-slate-50/30 px-6 py-4 text-right group-hover:bg-transparent">
                     <div className="flex justify-end gap-2">
-                      {/* DETAIL VIEW */}
+                     
                       <Link href={`/admin/makanan/${product.id}`}>
                         <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all">
                           <Eye size={18} />
                         </Button>
                       </Link>
 
-                      {/* EDIT */}
+                     
                       <Link href={`/admin/makanan/${product.id}/edit`}>
                         <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all">
                           <Pencil size={18} />
                         </Button>
                       </Link>
 
-                      {/* EXTERNAL LINK */}
+                     
                       <a href={product.link} target="_blank" rel="noopener noreferrer">
                         <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-primary hover:bg-orange-50 transition-all">
                           <ExternalLink size={18} />
                         </Button>
                       </a>
 
-                      {/* DELETE COMPONENT */}
+                      
                       <DeleteProductButton id={product.id} name={product.name} />
                     </div>
                   </td>

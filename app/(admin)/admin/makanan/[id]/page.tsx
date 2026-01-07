@@ -22,7 +22,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Header Section */}
+       
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-6">
             <Button 
@@ -68,11 +68,11 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
           </div>
         </header>
 
-        {/* Main Content Grid */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Left Column: Image & Quick Info */}
+          
           <div className="lg:col-span-2 space-y-6">
-            {/* Product Image */}
+            
             <div className="relative aspect-square rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm">
               <Image
                 src={product.image}
@@ -83,7 +83,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               />
             </div>
 
-            {/* Quick Specs Card */}
+            
             <div className="rounded-xl bg-white border border-slate-200 p-6 shadow-sm">
               <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-5">
                 Informasi Produk
@@ -133,7 +133,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               </div>
             </div>
 
-            {/* Purchase Link Card */}
+            
             <div className="rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 p-6 text-white shadow-lg">
               <div className="mb-4">
                 <p className="text-sm font-semibold mb-1">Link Pembelian</p>
@@ -151,7 +151,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
             </div>
           </div>
 
-          {/* Right Column: Detailed Information */}
+          
           <div className="lg:col-span-3 space-y-6">
             {/* Description */}
             <section className="rounded-xl bg-white border border-slate-200 p-6 shadow-sm">
@@ -165,9 +165,9 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               </div>
             </section>
 
-            {/* Benefits & Nutrition Grid */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Benefits */}
+              
               <section className="rounded-xl bg-white border border-slate-200 p-6 shadow-sm">
                 <h3 className="text-base font-semibold text-slate-900 mb-4">
                   Manfaat Utama
@@ -177,7 +177,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
                 </div>
               </section>
 
-              {/* Nutrition */}
+              
               <section className="rounded-xl bg-white border border-slate-200 p-6 shadow-sm">
                 <h3 className="text-base font-semibold text-slate-900 mb-4">
                   Informasi Nutrisi
@@ -190,7 +190,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               </section>
             </div>
 
-            {/* Metadata Footer */}
+           
             <div className="rounded-xl bg-slate-50 border border-slate-200 p-4">
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
                 <div>
