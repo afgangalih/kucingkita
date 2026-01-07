@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Plus, Package, ExternalLink, Pencil, Trash2 } from "lucide-react";
+import { Plus, Package, ExternalLink, Pencil, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { DeleteProductButton } from "./_components/delete-product-button";
 
 export default async function MakananPage() {
   const products = await prisma.product.findMany({
@@ -35,7 +36,7 @@ export default async function MakananPage() {
               <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                 <th className="px-6 pb-2">Produk</th>
                 <th className="px-6 pb-2">Kategori</th>
-                <th className="px-6 pb-2">Ukuran</th>
+                <th className="px-6 pb-2">Status</th>
                 <th className="px-6 pb-2 text-right">Aksi</th>
               </tr>
             </thead>
@@ -53,10 +54,10 @@ export default async function MakananPage() {
                         />
                       </div>
                       <div>
-                        <p className="text-sm font-black uppercase tracking-tight text-slate-900">
+                        <p className="text-sm font-black uppercase tracking-tight text-slate-900 leading-none">
                           {product.name}
                         </p>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                        <p className="mt-1 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
                           {product.brand}
                         </p>
                       </div>
@@ -68,27 +69,35 @@ export default async function MakananPage() {
                     </Badge>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
-                      {product.sizes.map((size) => (
-                        <span key={size} className="rounded-md bg-slate-100 px-2 py-0.5 text-[9px] font-bold text-slate-600">
-                          {size}
-                        </span>
-                      ))}
-                    </div>
+                    <Badge variant={product.isPublished ? "default" : "secondary"} className="rounded-md uppercase text-[8px] font-black">
+                      {product.isPublished ? "Published" : "Draft"}
+                    </Badge>
                   </td>
                   <td className="rounded-r-3xl bg-slate-50/30 px-6 py-4 text-right group-hover:bg-transparent">
                     <div className="flex justify-end gap-2">
-                      <Link href={product.link} target="_blank">
-                        <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-primary">
-                          <ExternalLink size={18} />
+                      {/* DETAIL VIEW */}
+                      <Link href={`/admin/makanan/${product.id}`}>
+                        <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all">
+                          <Eye size={18} />
                         </Button>
                       </Link>
+
+                      {/* EDIT */}
                       <Link href={`/admin/makanan/${product.id}/edit`}>
-                        <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-slate-900">
+                        <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all">
                           <Pencil size={18} />
                         </Button>
                       </Link>
-                      {/* Komponen Delete akan ditambahkan nanti */}
+
+                      {/* EXTERNAL LINK */}
+                      <a href={product.link} target="_blank" rel="noopener noreferrer">
+                        <Button size="icon" variant="ghost" className="h-10 w-10 rounded-xl text-slate-400 hover:text-primary hover:bg-orange-50 transition-all">
+                          <ExternalLink size={18} />
+                        </Button>
+                      </a>
+
+                      {/* DELETE COMPONENT */}
+                      <DeleteProductButton id={product.id} name={product.name} />
                     </div>
                   </td>
                 </tr>
