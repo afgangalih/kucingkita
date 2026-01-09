@@ -10,9 +10,27 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DeleteBreedDialog } from "./_components/delete-breed-dialog";
+import { BreedFilters } from "./_components/breed-filters";
 
-export default async function BreedListPage() {
+interface BreedListPageProps {
+  searchParams: Promise<{ q?: string; coat?: string }>;
+}
+
+export default async function BreedListPage({ searchParams }: BreedListPageProps) {
+  const { q, coat } = await searchParams;
+
   const breeds = await prisma.breed.findMany({
+    where: {
+      AND: [
+        q ? {
+          OR: [
+            { name: { contains: q, mode: "insensitive" } },
+            { slug: { contains: q, mode: "insensitive" } },
+          ],
+        } : {},
+        coat ? { coatType: coat } : {},
+      ],
+    },
     orderBy: { createdAt: "desc" },
   });
 
@@ -24,7 +42,7 @@ export default async function BreedListPage() {
             Katalog <span className="text-primary">Ras</span>
           </h1>
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-            Total {breeds.length} data kucing terdaftar
+            Total {breeds.length} data ras terfilter
           </p>
         </div>
         
@@ -36,14 +54,16 @@ export default async function BreedListPage() {
         </Link>
       </div>
 
+      <BreedFilters />
+
       {breeds.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-[3rem] border-2 border-dashed border-slate-200 bg-slate-50/50 p-20 text-center">
           <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-sm">
             <Cat className="h-10 w-10 text-slate-300" />
           </div>
-          <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">Database Kosong</h3>
+          <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">Data Tidak Ditemukan</h3>
           <p className="max-w-[200px] text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
-            Belum ada data ras yang diinput ke sistem
+            Coba sesuaikan kata kunci atau filter untuk menemukan data yang dicari
           </p>
         </div>
       ) : (
