@@ -10,7 +10,7 @@ export const ProductCategoryEnum = z.enum([
 export const productSchema = z.object({
   name: z.string().min(1, "Nama produk wajib diisi").max(255),
   slug: z.string().min(1, "Slug wajib diisi").toLowerCase(),
-  brand: z.string().min(1, "Merek wajib diisi").max(100),
+  brandId: z.string().min(1, "Merek wajib dipilih"),
   category: ProductCategoryEnum,
   image: z.string().min(1, "Foto produk wajib diunggah"),
   description: z.string().min(10, "Deskripsi minimal 10 karakter"),
@@ -18,7 +18,7 @@ export const productSchema = z.object({
   nutrition: z.string().min(1, "Informasi nutrisi wajib diisi"),
   sizes: z.array(z.string()).min(1, "Minimal masukkan satu ukuran produk"),
   link: z.string().url("Masukkan URL yang valid"),
-  isPublished: z.boolean(), // Hapus .default(false) di sini
+  isPublished: z.boolean(), 
 });
 
 export type ProductFormValues = z.infer<typeof productSchema>;

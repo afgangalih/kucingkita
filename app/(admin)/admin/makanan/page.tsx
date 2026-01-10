@@ -29,11 +29,14 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
         q ? {
           OR: [
             { name: { contains: q, mode: 'insensitive' } },
-            { brand: { contains: q, mode: 'insensitive' } },
+            { brand: { name: { contains: q, mode: 'insensitive' } } },
           ]
         } : {},
         category ? { category: category as ProductCategory } : {},
       ]
+    },
+    include: {
+      brand: true
     },
     orderBy: { createdAt: "desc" },
   });
@@ -51,7 +54,7 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
         </div>
         <Link href="/admin/makanan/tambah">
           <Button className="group h-14 rounded-2xl bg-slate-900 px-6 font-bold text-white shadow-lg shadow-slate-200 transition-all hover:bg-primary active:scale-95">
-            <Plus className="mr-2 h-5 w-5 stroke-[3px]" /> 
+            <Plus className="mr-2 h-5 w-5 stroke-[3px] transition-transform group-hover:rotate-90" /> 
             TAMBAH PRODUK
           </Button>
         </Link>
@@ -101,38 +104,35 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
                           {product.name}
                         </p>
                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                          {product.brand}
+                          {product.brand.name}
                         </p>
                       </div>
                     </div>
                   </TableCell>
-                  
                   <TableCell className="border-y border-slate-50 group-hover:border-slate-100">
                     <Badge variant="outline" className="rounded-lg border border-slate-100 bg-white px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-slate-500 shadow-none">
                       {product.category.replace("_", " ")}
                     </Badge>
                   </TableCell>
-                  
                   <TableCell className="border-y border-slate-50 group-hover:border-slate-100">
                     <Badge variant={product.isPublished ? "default" : "secondary"} className="rounded-md px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter shadow-none">
                       {product.isPublished ? "Published" : "Draft"}
                     </Badge>
                   </TableCell>
-                  
                   <TableCell className="rounded-r-2xl border-y border-r border-slate-50 group-hover:border-slate-100 text-right pr-4">
                     <div className="flex justify-end gap-1">
                       <Link href={`/admin/makanan/${product.id}`}>
-                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-white border border-transparent hover:border-slate-100 hover:shadow-sm transition-all">
+                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-blue-600 transition-all">
                           <Eye size={16} />
                         </Button>
                       </Link>
                       <Link href={`/admin/makanan/${product.id}/edit`}>
-                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-white border border-transparent hover:border-slate-100 hover:shadow-sm transition-all">
+                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-slate-900 transition-all">
                           <Pencil size={16} />
                         </Button>
                       </Link>
                       <a href={product.link} target="_blank" rel="noopener noreferrer">
-                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-primary hover:bg-white border border-transparent hover:border-slate-100 hover:shadow-sm transition-all">
+                        <Button size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:text-primary transition-all">
                           <ExternalLink size={16} />
                         </Button>
                       </a>
