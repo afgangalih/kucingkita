@@ -11,9 +11,14 @@ export default async function EditProductPage({ params }: EditPageProps) {
 
   if (!id) notFound();
 
-  const product = await prisma.product.findUnique({
-    where: { id },
-  });
+  const [product, brands] = await Promise.all([
+    prisma.product.findUnique({
+      where: { id },
+    }),
+    prisma.brand.findMany({
+      orderBy: { name: "asc" },
+    }),
+  ]);
 
   if (!product) notFound();
 
@@ -28,7 +33,7 @@ export default async function EditProductPage({ params }: EditPageProps) {
         </p>
       </div>
 
-      <EditProductClient product={product} />
+      <EditProductClient product={product} brands={brands} />
     </div>
   );
 }
