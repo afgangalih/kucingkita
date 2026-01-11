@@ -71,7 +71,7 @@ const navigationData: NavData = {
       icon: PackageSearch,
       items: [
         { title: "Katalog Makanan", url: "/admin/makanan", icon: Utensils },
-        { title: "Merek & Brand", url: "/admin/merek", icon: Award },
+        { title: "Merek & Brand", url: "/admin/brand", icon: Award },
       ],
     },
     { title: "Artikel & Edukasi", url: "/admin/artikel", icon: BookOpen },
