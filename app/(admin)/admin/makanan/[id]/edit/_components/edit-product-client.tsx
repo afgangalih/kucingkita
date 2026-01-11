@@ -11,13 +11,14 @@ import { Loader2, Save, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { updateProduct } from "../../../_actions/product-action";
 import { ProductForm } from "../../../_components/product-form";
-import { Product } from "@prisma/client";
+import { Product, Brand } from "@prisma/client";
 
 interface EditProductClientProps {
   product: Product;
+  brands: Brand[];
 }
 
-export function EditProductClient({ product }: EditProductClientProps) {
+export function EditProductClient({ product, brands }: EditProductClientProps) {
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
 
@@ -26,7 +27,7 @@ export function EditProductClient({ product }: EditProductClientProps) {
     defaultValues: {
       name: product.name,
       slug: product.slug,
-      brand: product.brand,
+      brandId: product.brandId,
       category: product.category as ProductFormValues["category"],
       image: product.image,
       description: product.description,
@@ -62,7 +63,7 @@ export function EditProductClient({ product }: EditProductClientProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-        <ProductForm control={form.control} />
+        <ProductForm control={form.control} brands={brands} />
         
         <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-10">
           <Button
@@ -89,5 +90,6 @@ export function EditProductClient({ product }: EditProductClientProps) {
         </div>
       </form>
     </Form>
+    // trigger
   );
 }

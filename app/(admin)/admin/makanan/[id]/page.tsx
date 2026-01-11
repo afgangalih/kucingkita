@@ -15,6 +15,9 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
 
   const product = await prisma.product.findUnique({
     where: { id },
+    include: {
+      brand: true,
+    },
   });
 
   if (!product) notFound();
@@ -50,7 +53,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               <h1 className="text-5xl font-black italic uppercase tracking-tighter text-slate-900 leading-none">
                 {product.name}
               </h1>
-              <p className="text-sm font-bold text-primary uppercase tracking-[0.1em]">{product.brand}</p>
+              <p className="text-sm font-bold text-primary uppercase tracking-[0.1em]">{product.brand.name}</p>
             </div>
 
             <Button 
@@ -90,7 +93,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
                   </div>
                   <div>
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Brand</p>
-                    <p className="text-sm font-black text-slate-900 uppercase italic tracking-tight leading-none">{product.brand}</p>
+                    <p className="text-sm font-black text-slate-900 uppercase italic tracking-tight leading-none">{product.brand.name}</p>
                   </div>
                 </div>
 
@@ -127,7 +130,6 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               </div>
             </div>
 
-            {/* Minimalist Direct Access Link */}
             <div className="pt-4 px-2">
               <a 
                 href={product.link} 

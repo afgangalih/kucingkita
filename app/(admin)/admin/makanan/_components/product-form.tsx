@@ -10,12 +10,15 @@ import { Switch } from "@/components/ui/switch";
 import { ProductSizeInput } from "./product-size-input";
 import { ProductImageUpload } from "./product-image-upload";
 import { Info, Image as ImageIcon, Eye } from "lucide-react";
+import { Brand } from "@prisma/client";
+import { AddBrandDialog } from "./add-brand-dialog";
 
 interface ProductFormProps {
   control: Control<ProductFormValues>;
+  brands: Brand[];
 }
 
-export function ProductForm({ control }: ProductFormProps) {
+export function ProductForm({ control, brands }: ProductFormProps) {
   return (
     <div className="space-y-12">
       <div className="rounded-[2.5rem] border border-slate-100 bg-white p-10 shadow-sm">
@@ -46,7 +49,6 @@ export function ProductForm({ control }: ProductFormProps) {
             )}
           />
         </div>
-
         <FormField
           control={control}
           name="image"
@@ -86,17 +88,39 @@ export function ProductForm({ control }: ProductFormProps) {
               </FormItem>
             )}
           />
+
           <FormField
             control={control}
-            name="brand"
+            name="brandId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400">Merek</FormLabel>
-                <FormControl><Input className="h-12 rounded-xl border-2 font-bold" {...field} /></FormControl>
+                <div className="flex items-center justify-between">
+                  <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400">Merek</FormLabel>
+                  <AddBrandDialog />
+                </div>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="h-12 rounded-xl border-2 font-bold">
+                      <SelectValue placeholder={brands.length === 0 ? "Tambah merek dahulu" : "Pilih merek"} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="rounded-xl">
+                    {brands.length === 0 ? (
+                      <div className="p-4 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">Belum ada merek</div>
+                    ) : (
+                      brands.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id} className="font-bold uppercase text-[10px] tracking-widest">
+                          {brand.name}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={control}
             name="category"
@@ -121,6 +145,7 @@ export function ProductForm({ control }: ProductFormProps) {
               </FormItem>
             )}
           />
+
           <FormField
             control={control}
             name="slug"
