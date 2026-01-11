@@ -90,5 +90,6 @@ export function EditProductClient({ product, brands }: EditProductClientProps) {
         </div>
       </form>
     </Form>
+    // trigger
   );
 }
