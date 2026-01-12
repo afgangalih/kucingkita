@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -10,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Pencil, ImageIcon } from "lucide-react";
+import { Pencil, ImageIcon, Eye } from "lucide-react";
 import { BrandModal } from "./brand-modal";
 import { DeleteBrandButton } from "./delete-brand-button";
 import { useState } from "react";
@@ -30,13 +31,13 @@ export function BrandTable({ data }: { data: BrandWithCount[] }) {
           <TableHeader>
             <TableRow className="border-none hover:bg-transparent text-nowrap">
               <TableHead className="px-4 text-[11px] font-black uppercase tracking-[0.2em] text-slate-900">
-                Brand
+                Merek
               </TableHead>
               <TableHead className="px-4 text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 text-center">
-                In Stock
+                Stok Produk
               </TableHead>
               <TableHead className="px-4 text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 text-right pr-6">
-                Management
+                Manajemen
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -74,16 +75,25 @@ export function BrandTable({ data }: { data: BrandWithCount[] }) {
                 </TableCell>
                 <TableCell className="border-y border-slate-50 group-hover:border-slate-100 text-center">
                   <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg text-[10px] font-black bg-slate-100 text-slate-500 uppercase tracking-tighter group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                    {brand._count.products} Products
+                    {brand._count.products} PRODUK
                   </span>
                 </TableCell>
                 <TableCell className="rounded-r-2xl border-y border-r border-slate-50 group-hover:border-slate-100 text-right pr-4">
                   <div className="flex justify-end gap-1">
+                    <Link href={`/admin/brand/${brand.id}`}>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-9 w-9 rounded-xl text-slate-400 hover:text-blue-600 transition-all hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-100"
+                      >
+                        <Eye size={16} />
+                      </Button>
+                    </Link>
                     <Button
                       onClick={() => setEditingBrand(brand)}
                       size="icon"
                       variant="ghost"
-                      className="h-9 w-9 rounded-xl text-slate-400 hover:text-slate-900 transition-all"
+                      className="h-9 w-9 rounded-xl text-slate-400 hover:text-slate-900 transition-all hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-100"
                     >
                       <Pencil size={16} />
                     </Button>
