@@ -23,19 +23,18 @@ export async function createBrand(data: BrandFormValues) {
         name: data.name,
         slug: data.slug,
         logo: data.logo,
+        description: data.description,
         category: data.category,
+        socials: data.socials || [],
       },
     });
     revalidatePath("/admin/brand");
     return { success: true, data: brand };
   } catch (error: unknown) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
-    ) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       return { success: false, error: "Nama atau slug brand sudah terdaftar" };
     }
-    return { success: false, error: "Terjadi kesalahan sistem" };
+    return { success: false, error: "Gagal membuat brand" };
   }
 }
 
@@ -47,10 +46,13 @@ export async function updateBrand(id: string, data: BrandFormValues) {
         name: data.name,
         slug: data.slug,
         logo: data.logo,
+        description: data.description,
         category: data.category,
+        socials: data.socials || [],
       },
     });
     revalidatePath("/admin/brand");
+    revalidatePath(`/admin/brand/${id}`);
     return { success: true };
   } catch {
     return { success: false, error: "Gagal memperbarui brand" };
@@ -65,8 +67,7 @@ export async function deleteBrand(id: string) {
   } catch {
     return {
       success: false,
-      error:
-        "Gagal menghapus brand. Pastikan brand tidak memiliki produk terhubung.",
+      error: "Gagal menghapus brand. Pastikan brand tidak memiliki produk terhubung.",
     };
   }
 }

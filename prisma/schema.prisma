@@ -92,16 +92,17 @@ enum ProductCategory {
 }
 
 model Brand {
-  id        String    @id @default(uuid())
-  name      String    @unique @db.VarChar(100)
-  slug      String    @unique
-  logo      String
-  category  String?   @db.VarChar(50)
-  products  Product[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String   @id @default(uuid())
+  name        String   @unique @db.VarChar(100)
+  slug        String   @unique
+  logo        String
+  description String?  @db.Text
+  category    String?  @db.VarChar(50) 
+  socials     Json?    @default("[]") 
+  products    Product[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
-
 model Product {
   id          String          @id @default(uuid())
   slug        String          @unique
