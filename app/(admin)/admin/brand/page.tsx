@@ -1,14 +1,29 @@
 import { prisma } from "@/lib/prisma";
-import { Award } from "lucide-react";
+import { Tag } from "lucide-react";
 import { BrandTable } from "./_components/brand-table";
 import { BrandModal } from "./_components/brand-modal";
+import { BrandFilters } from "./_components/brand-filters";
 
-export default async function BrandPage() {
+interface BrandPageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function BrandPage({ searchParams }: BrandPageProps) {
+  const { q } = await searchParams;
+
   const brands = await prisma.brand.findMany({
+    where: {
+      ...(q ? {
+        name: {
+          contains: q,
+          mode: 'insensitive',
+        },
+      } : {}),
+    },
     include: {
       _count: {
-        select: { products: true },
-      },
+        select: { products: true }
+      }
     },
     orderBy: { createdAt: "desc" },
   });
@@ -27,16 +42,16 @@ export default async function BrandPage() {
         <BrandModal />
       </div>
 
+      <BrandFilters />
+
       {brands.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-[3rem] border border-dashed border-slate-200 bg-slate-50/30 p-20 text-center">
+        <div className="flex flex-col items-center justify-center rounded-4xl border border-dashed border-slate-200 bg-slate-50/30 p-20 text-center">
           <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white border border-slate-100 shadow-sm">
-            <Award className="h-10 w-10 text-slate-300" />
+            <Tag className="h-10 w-10 text-slate-300" />
           </div>
-          <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">
-            Belum Ada Brand
-          </h3>
+          <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">Data Tidak Ditemukan</h3>
           <p className="max-w-50 text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
-            Mulai tambahkan brand pertama Anda untuk mengelola katalog produk
+            Coba sesuaikan kata kunci pencarian Anda
           </p>
         </div>
       ) : (
