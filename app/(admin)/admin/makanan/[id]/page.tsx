@@ -53,7 +53,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               <h1 className="text-5xl font-black italic uppercase tracking-tighter text-slate-900 leading-none">
                 {product.name}
               </h1>
-              <p className="text-sm font-bold text-primary uppercase tracking-[0.1em]">{product.brand.name}</p>
+              <p className="text-sm font-bold text-primary uppercase tracking-widest">{product.brand.name}</p>
             </div>
 
             <Button 
@@ -81,7 +81,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               />
             </div>
 
-            <div className="rounded-[2rem] bg-white border border-slate-100 p-8 shadow-sm space-y-8">
+            <div className="rounded-4xl bg-white border border-slate-100 p-8 shadow-sm space-y-8">
               <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2">
                 <ShieldCheck size={14} className="text-primary" /> Informasi Produk
               </h3>
@@ -194,7 +194,7 @@ export default async function ProductDetailPage({ params }: DetailPageProps) {
               </section>
             </div>
 
-            <div className="rounded-[2rem] bg-slate-50/50 border-2 border-dashed border-slate-100 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="rounded-4xl bg-slate-50/50 border-2 border-dashed border-slate-100 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm">
                   <Clock size={18} />

@@ -45,13 +45,13 @@ export function ProductImageUpload({
 
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage
-        .from("images")
-        .getPublicUrl(filePath);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("images").getPublicUrl(filePath);
 
       onChange(publicUrl);
       toast.success("Gambar berhasil diunggah");
-    } catch (error) {
+    } catch {
       toast.error("Gagal mengunggah gambar");
     } finally {
       setIsUploading(false);

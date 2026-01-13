@@ -49,7 +49,7 @@ export default function AddProductFormClient({ brands }: Props) {
         toast.success("Produk berhasil ditambahkan", { id: toastId });
         router.push("/admin/makanan");
       }
-    } catch (error) {
+    } catch {
       toast.error("Terjadi kesalahan sistem", { id: toastId });
     } finally {
       setIsPending(false);
@@ -79,16 +79,19 @@ export default function AddProductFormClient({ brands }: Props) {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          {/* Kirim brands ke ProductForm agar map() tidak error */}
           <ProductForm control={form.control} brands={brands} />
 
           <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-10">
             <Button
               type="submit"
               disabled={isPending}
-              className="h-14 min-w-[220px] rounded-2xl bg-slate-900 px-10 font-black text-white shadow-xl transition-all hover:bg-primary"
+              className="h-14 min-w-55 rounded-2xl bg-slate-900 px-10 font-black text-white shadow-xl transition-all hover:bg-primary"
             >
-              {isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+              {isPending ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Save className="h-5 w-5" />
+              )}
               <span className="ml-2">SIMPAN PRODUK</span>
             </Button>
           </div>

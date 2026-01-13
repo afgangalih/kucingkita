@@ -68,12 +68,12 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
             <Package className="h-10 w-10 text-slate-300" />
           </div>
           <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">Data Tidak Ditemukan</h3>
-          <p className="max-w-[200px] text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
+          <p className="max-w-50 text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
             Coba sesuaikan kata kunci atau filter kategori Anda
           </p>
         </div>
       ) : (
-        <div className="rounded-[2rem] border border-slate-100 bg-white p-2 shadow-sm">
+        <div className="rounded-4xl border border-slate-100 bg-white p-2 shadow-sm">
           <Table className="border-separate border-spacing-y-2">
             <TableHeader>
               <TableRow className="border-none hover:bg-transparent">

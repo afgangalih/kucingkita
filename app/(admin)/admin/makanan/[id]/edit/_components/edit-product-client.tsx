@@ -42,10 +42,10 @@ export function EditProductClient({ product, brands }: EditProductClientProps) {
   async function onSubmit(data: ProductFormValues) {
     setIsPending(true);
     const toastId = toast.loading("Menyimpan perubahan...");
-    
+
     try {
       const result = await updateProduct(product.id, data);
-      
+
       if (result.error) {
         toast.error(result.error, { id: toastId });
       } else {
@@ -53,7 +53,7 @@ export function EditProductClient({ product, brands }: EditProductClientProps) {
         router.push("/admin/makanan");
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       toast.error("Terjadi kesalahan sistem", { id: toastId });
     } finally {
       setIsPending(false);
@@ -64,7 +64,7 @@ export function EditProductClient({ product, brands }: EditProductClientProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
         <ProductForm control={form.control} brands={brands} />
-        
+
         <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-10">
           <Button
             type="button"
@@ -74,11 +74,11 @@ export function EditProductClient({ product, brands }: EditProductClientProps) {
           >
             <X className="mr-2 h-5 w-5" /> BATAL
           </Button>
-          
+
           <Button
             type="submit"
             disabled={isPending}
-            className="h-14 min-w-[220px] rounded-2xl bg-slate-900 px-10 font-black text-white shadow-xl hover:bg-primary transition-all active:scale-95 disabled:opacity-70"
+            className="h-14 min-w-55 rounded-2xl bg-slate-900 px-10 font-black text-white shadow-xl hover:bg-primary transition-all active:scale-95 disabled:opacity-70"
           >
             {isPending ? (
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />

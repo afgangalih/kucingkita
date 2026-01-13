@@ -16,9 +16,12 @@ export async function createBrand(data: {
         slug: data.slug,
         logo: data.logo,
         category: data.category,
+        description: "",
+        socials: [],
       },
     });
     revalidatePath("/admin/makanan");
+    revalidatePath("/admin/brand");
     return { success: true, brand };
   } catch {
     return { error: "Gagal membuat merek baru" };
