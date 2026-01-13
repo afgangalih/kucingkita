@@ -116,7 +116,7 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
                   </TableCell>
                   <TableCell className="border-y border-slate-50 group-hover:border-slate-100">
                     <Badge variant={product.isPublished ? "default" : "secondary"} className="rounded-md px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter shadow-none">
-                      {product.isPublished ? "Published" : "Draft"}
+                      {product.isPublished ? "Tayang" : "Draf"}
                     </Badge>
                   </TableCell>
                   <TableCell className="rounded-r-2xl border-y border-r border-slate-50 group-hover:border-slate-100 text-right pr-4">
