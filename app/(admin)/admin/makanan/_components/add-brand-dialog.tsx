@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,7 +24,7 @@ export function AddBrandDialog() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    e.stopPropagation(); 
+    e.stopPropagation();
 
     setIsPending(true);
     const formData = new FormData(e.currentTarget);
@@ -38,8 +38,8 @@ export function AddBrandDialog() {
       const res = await createBrand({
         name,
         slug,
-        logo: `https://ui-avatars.com/api/?name=${name}&background=random&color=fff`,
-        category: "Premium",
+        logo: `https://ui-avatars.com/api/?name=${name}&background=0F172A&color=fff`,
+        category: "Umum",
       });
 
       if (res.error) {
@@ -49,7 +49,7 @@ export function AddBrandDialog() {
         setOpen(false);
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       toast.error("Terjadi kesalahan");
     } finally {
       setIsPending(false);
@@ -61,44 +61,48 @@ export function AddBrandDialog() {
       <DialogTrigger asChild>
         <Button
           type="button"
-          variant="outline"
-          size="sm"
-          className="h-8 rounded-lg border-dashed border-2 text-[9px] font-black uppercase tracking-widest text-primary hover:bg-primary/5"
+          className="h-9 rounded-xl bg-slate-900 px-4 text-[9px] font-black uppercase tracking-[0.15em] text-white hover:bg-primary transition-all shadow-md active:scale-95"
         >
-          <Plus className="mr-1 h-3 w-3" /> Tambah Merek Baru
+          <Plus className="mr-1.5 h-3.5 w-3.5 stroke-[4px]" /> TAMBAH MEREK
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-[2rem] sm:max-w-[425px]">
+      
+      <DialogContent className="rounded-[2.5rem] border-none sm:max-w-md shadow-2xl p-10 bg-white">
         <DialogHeader>
-          <DialogTitle className="font-black italic uppercase tracking-tighter">
-            Tambah Merek
+          <DialogTitle className="flex items-center gap-3 font-black uppercase italic tracking-tighter text-2xl text-slate-900">
+            <div className="bg-primary/10 p-2 rounded-xl">
+              <Tag className="h-5 w-5 text-primary" />
+            </div>
+            TAMBAH <span className="text-primary">MEREK</span>
           </DialogTitle>
-          <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-            Daftarkan merek makanan baru ke database
+          <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-2">
+            Pendaftaran cepat merek ke dalam database
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6 pt-4">
-          <div className="space-y-2">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
-              Nama Merek
+
+        <form onSubmit={handleSubmit} className="space-y-8 pt-6">
+          <div className="space-y-3">
+            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
+              Nama Merek Resmi
             </Label>
             <Input
               name="name"
               placeholder="Contoh: Royal Canin"
-              className="h-12 rounded-xl border-2 font-bold"
+              className="h-14 rounded-2xl border-2 border-slate-100 bg-slate-50/50 font-bold focus:bg-white focus:border-primary/30 transition-all px-5 text-sm"
               required
               autoComplete="off"
             />
           </div>
+          
           <Button
             type="submit"
             disabled={isPending}
-            className="w-full h-12 rounded-xl bg-slate-900 font-black text-white"
+            className="h-14 w-full rounded-2xl bg-slate-900 font-black uppercase tracking-[0.2em] text-[10px] text-white shadow-xl hover:bg-primary transition-all active:scale-95 disabled:opacity-50"
           >
             {isPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              "SIMPAN MEREK"
+              "KONFIRMASI DATA"
             )}
           </Button>
         </form>

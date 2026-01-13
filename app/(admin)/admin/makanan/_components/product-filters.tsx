@@ -76,7 +76,7 @@ export function ProductFilters() {
               />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="rounded-xl border border-slate-200 min-w-[200px] shadow-lg p-1" align="end">
+          <DropdownMenuContent className="rounded-xl border border-slate-200 min-w-50 shadow-lg p-1" align="end">
             <DropdownMenuItem
               onClick={() => applyFilter("category", "")}
               className="font-bold text-[10px] uppercase tracking-widest py-2 italic cursor-pointer rounded-lg"

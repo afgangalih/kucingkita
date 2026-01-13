@@ -3,7 +3,7 @@
 import { useFieldArray, Control, ArrayPath } from "react-hook-form";
 import { Plus, Trash2, Box } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ProductFormValues } from "@/lib/validations/product";
 
@@ -26,14 +26,14 @@ export function ProductSizeInput({ control }: ProductSizeInputProps) {
             Varian Ukuran
           </h3>
         </div>
+        
+        {/* Button sudah konsisten dengan AddBrandDialog */}
         <Button
           type="button"
-          variant="outline"
-          size="sm"
           onClick={() => append("")}
-          className="h-9 rounded-xl border-2 font-bold text-[10px] uppercase transition-all hover:bg-slate-50"
+          className="h-9 rounded-xl bg-slate-900 px-4 text-[9px] font-black uppercase tracking-[0.15em] text-white hover:bg-primary transition-all shadow-md active:scale-95"
         >
-          <Plus className="mr-2 h-4 w-4" /> Tambah Ukuran
+          <Plus className="mr-1.5 h-3.5 w-3.5 stroke-[4px]" /> Tambah Ukuran
         </Button>
       </div>
 
@@ -51,17 +51,17 @@ export function ProductSizeInput({ control }: ProductSizeInputProps) {
                         <Input
                           {...field}
                           placeholder="e.g. 400g"
-                          className="h-12 w-32 rounded-2xl border-2 bg-white px-4 text-xs font-bold transition-all focus-visible:ring-primary group-hover:border-slate-300"
+                          className="h-12 w-32 rounded-2xl border-2 border-slate-100 bg-slate-50/30 px-5 text-xs font-bold transition-all focus:bg-white focus:border-primary/30 group-hover:border-slate-300"
                         />
                       </div>
                       <Button
                         type="button"
-                        variant="destructive"
+                        variant="ghost"
                         size="icon"
                         onClick={() => remove(index)}
-                        className="h-10 w-10 rounded-xl shadow-sm transition-all active:scale-95"
+                        className="h-12 w-12 rounded-2xl text-slate-300 hover:text-red-500 hover:bg-red-50 transition-all"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={16} />
                       </Button>
                     </div>
                   </FormControl>
@@ -73,8 +73,8 @@ export function ProductSizeInput({ control }: ProductSizeInputProps) {
         ))}
 
         {fields.length === 0 && (
-          <div className="w-full rounded-3xl border-2 border-dashed border-slate-100 py-10 text-center">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 italic">
+          <div className="w-full rounded-4xl border-2 border-dashed border-slate-100 py-10 text-center bg-slate-50/20">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-300 italic opacity-70">
               Belum ada ukuran yang ditambahkan
             </p>
           </div>

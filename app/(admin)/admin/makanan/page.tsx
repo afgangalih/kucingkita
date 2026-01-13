@@ -68,12 +68,12 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
             <Package className="h-10 w-10 text-slate-300" />
           </div>
           <h3 className="text-lg font-black uppercase tracking-tight text-slate-400">Data Tidak Ditemukan</h3>
-          <p className="max-w-[200px] text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
+          <p className="max-w-50 text-[10px] font-bold uppercase leading-relaxed text-slate-400 opacity-70">
             Coba sesuaikan kata kunci atau filter kategori Anda
           </p>
         </div>
       ) : (
-        <div className="rounded-[2rem] border border-slate-100 bg-white p-2 shadow-sm">
+        <div className="rounded-4xl border border-slate-100 bg-white p-2 shadow-sm">
           <Table className="border-separate border-spacing-y-2">
             <TableHeader>
               <TableRow className="border-none hover:bg-transparent">
@@ -116,7 +116,7 @@ export default async function MakananPage({ searchParams }: MakananPageProps) {
                   </TableCell>
                   <TableCell className="border-y border-slate-50 group-hover:border-slate-100">
                     <Badge variant={product.isPublished ? "default" : "secondary"} className="rounded-md px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter shadow-none">
-                      {product.isPublished ? "Published" : "Draft"}
+                      {product.isPublished ? "Tayang" : "Draf"}
                     </Badge>
                   </TableCell>
                   <TableCell className="rounded-r-2xl border-y border-r border-slate-50 group-hover:border-slate-100 text-right pr-4">
