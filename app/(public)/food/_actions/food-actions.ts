@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { prisma } from "@/lib/prisma";
 import { ProductCategory } from "@prisma/client";
