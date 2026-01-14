@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, ProductFormValues } from "@/lib/validations/product";
@@ -9,24 +9,29 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Loader2, Save, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { createProduct } from "../../_actions/product-action"; // Sesuaikan path-nya
-import { ProductForm } from "../../_components/product-form"; // Sesuaikan path-nya
+import { createProduct } from "../../_actions/product-action";
+import { ProductForm } from "../../_components/product-form";
 import { Brand } from "@prisma/client";
 
 interface Props {
   brands: Brand[];
 }
 
-export default function AddProductFormClient({ brands }: Props) {
+export default function AddProductFormClient({ brands: initialBrands }: Props) {
   const [isPending, setIsPending] = useState(false);
+  const [brands, setBrands] = useState<Brand[]>(initialBrands);
   const router = useRouter();
+
+  useEffect(() => {
+    setBrands(initialBrands);
+  }, [initialBrands]);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",
       slug: "",
-      brandId: "", // Pastikan ini brandId, bukan brand
+      brandId: "",
       category: "DRY_FOOD",
       image: "",
       description: "",
@@ -58,7 +63,6 @@ export default function AddProductFormClient({ brands }: Props) {
 
   return (
     <div className="space-y-10">
-      {/* Header tetap sama seperti desain Anda */}
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-4xl font-black italic uppercase tracking-tighter text-slate-900 leading-none">
@@ -79,7 +83,7 @@ export default function AddProductFormClient({ brands }: Props) {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          <ProductForm control={form.control} brands={brands} />
+      <ProductForm control={form.control} brands={brands} />
 
           <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-10">
             <Button
