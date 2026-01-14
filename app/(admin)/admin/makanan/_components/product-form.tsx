@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,16 +24,17 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { ProductSizeInput } from "./product-size-input";
 import { ProductImageUpload } from "./product-image-upload";
-import { Info, Image as ImageIcon, Eye} from "lucide-react";
+import { Info, Image as ImageIcon, Eye } from "lucide-react";
 import { Brand } from "@prisma/client";
 import { AddBrandDialog } from "./add-brand-dialog";
 
 interface ProductFormProps {
   control: Control<ProductFormValues>;
   brands: Brand[];
+  onNewBrand?: (brand: Brand) => void;
 }
 
-export function ProductForm({ control, brands }: ProductFormProps) {
+export function ProductForm({ control, brands, onNewBrand }: ProductFormProps) {
   return (
     <div className="space-y-12">
       <div className="rounded-4xl border border-slate-100 bg-white p-10 shadow-sm">
@@ -52,9 +52,9 @@ export function ProductForm({ control, brands }: ProductFormProps) {
             control={control}
             name="isPublished"
             render={({ field }) => (
-              <FormItem className="flex items-center gap-3 space-y-0 rounded-2xl bg-slate-50 px-5 py-2.5 border border-slate-100 shadow-sm">
-                <FormLabel className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-                  {field.value ? "PUBLISHED" : "DRAFT"}
+              <FormItem className="flex items-center gap-4 space-y-0 rounded-2xl bg-white px-5 py-2.5 border-2 border-slate-100 shadow-sm transition-all">
+                <FormLabel className={`text-[10px] font-black uppercase tracking-[0.15em] transition-colors ${field.value ? "text-primary" : "text-slate-400"}`}>
+                  {field.value ? "PUBLISHED" : "DRAFT MODE"}
                 </FormLabel>
                 <FormControl>
                   <Switch
@@ -128,11 +128,12 @@ export function ProductForm({ control, brands }: ProductFormProps) {
                   <FormLabel className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
                     Merek
                   </FormLabel>
-                  <AddBrandDialog />
+                  <AddBrandDialog onBrandCreated={(newBrand) => {
+                    if (onNewBrand) onNewBrand(newBrand);
+                  }} />
                 </div>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
                   value={field.value}
                 >
                   <FormControl>
@@ -141,15 +142,19 @@ export function ProductForm({ control, brands }: ProductFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="rounded-2xl shadow-xl p-1 border-slate-100">
-                    {brands.map((brand) => (
-                      <SelectItem
-                        key={brand.id}
-                        value={brand.id}
-                        className="font-bold uppercase text-[10px] tracking-widest py-3 rounded-xl focus:bg-primary focus:text-white transition-colors cursor-pointer"
-                      >
-                        {brand.name}
-                      </SelectItem>
-                    ))}
+                    {brands.length === 0 ? (
+                      <div className="p-4 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">Belum ada merek</div>
+                    ) : (
+                      brands.map((brand) => (
+                        <SelectItem
+                          key={brand.id}
+                          value={brand.id}
+                          className="font-bold uppercase text-[10px] tracking-widest py-3 rounded-xl focus:bg-primary focus:text-white transition-colors cursor-pointer"
+                        >
+                          {brand.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -167,7 +172,6 @@ export function ProductForm({ control, brands }: ProductFormProps) {
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
                   value={field.value}
                 >
                   <FormControl>
@@ -207,9 +211,6 @@ export function ProductForm({ control, brands }: ProductFormProps) {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription className="text-[9px] font-bold uppercase tracking-tight text-slate-400 px-1">
-                  PATH: /makanan/{field.value || "..."}
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
