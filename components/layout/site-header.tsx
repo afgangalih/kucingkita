@@ -111,7 +111,7 @@ export function SiteHeader() {
 
                 <SheetContent
                   side="right"
-                  className="w-[85%] max-w-[380px] p-0 flex flex-col border-l rounded-none"
+                  className="w-[85%] max-w-95 p-0 flex flex-col border-l rounded-none"
                 >
                   <SheetHeader className="p-6 border-b text-left">
                     <SheetTitle className="flex items-center gap-2">
@@ -137,8 +137,8 @@ export function SiteHeader() {
                         </CollapsibleTrigger>
                         <CollapsibleContent className="px-4 py-2 space-y-1 animate-in slide-in-from-top-1">
                           <MobileListItem
-                            title="Nutrisi & Diet"
-                            href="/nutrisi"
+                            title="Katalog Makanan"
+                            href="/food"
                             onClick={() => setIsOpen(false)}
                           />
                           <MobileListItem
@@ -186,15 +186,15 @@ export function SiteHeader() {
 
 function MegaMenuContent() {
   return (
-    <div className="w-[700px] p-6">
+    <div className="w-175 p-6">
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-2">
           <h3 className="text-lg font-black text-foreground mb-4 px-3 italic">
             Anabul Care
           </h3>
           <ul className="space-y-1">
-            <ListItem title="Nutrisi & Diet" href="/nutrisi">
-              Makanan terbaik untuk kucing Anda
+            <ListItem title="Katalog Makanan" href="/food">
+              Temukan referensi nutrisi terbaik untuk kucing Anda
             </ListItem>
             <ListItem title="Kesehatan Vet" href="/kesehatan">
               Vaksinasi dan konsultasi dokter hewan
@@ -208,7 +208,7 @@ function MegaMenuContent() {
           </ul>
         </div>
         <div className="flex items-center justify-center">
-          <div className="w-full h-[280px] bg-slate-50 dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative">
+          <div className="w-full h-70 bg-slate-50 dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative">
             <PawPrint className="h-12 w-12 text-slate-200 dark:text-slate-800 mb-2" />
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
               Anabul Care Center
