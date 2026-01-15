@@ -1,10 +1,12 @@
 "use client";
 
+import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Brand } from "@prisma/client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Brand } from "@prisma/client";
 import { ProductCategoryEnum } from "@/lib/validations/product";
 
 interface FoodSidebarProps {
@@ -15,67 +17,66 @@ export function FoodSidebar({ brands }: FoodSidebarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentBrand = searchParams.get("brand");
-  const currentCategory = searchParams.get("category");
+  const currentBrand = searchParams.get("brand") || "";
+  const currentCategory = searchParams.get("category") || "";
 
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
+    
     if (params.get(key) === value) {
       params.delete(key);
     } else {
       params.set(key, value);
     }
+    
     router.push(`/food?${params.toString()}`, { scroll: false });
   };
 
   return (
-    <div className="space-y-10">
-      <div className="space-y-6">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 border-l-4 border-primary pl-3">
-          Product Category
+    <div className="flex flex-col gap-10">
+      <div>
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8">
+          Category
         </h3>
-        <div className="grid gap-3">
+        <div className="space-y-5">
           {ProductCategoryEnum.options.map((cat) => (
-            <div
-              key={cat}
-              onClick={() => updateFilter("category", cat)}
-              className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all border-2 ${
-                currentCategory === cat
-                  ? "border-primary bg-primary/5 text-primary"
-                  : "border-transparent hover:bg-slate-50 text-slate-500"
-              }`}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-widest">
+            <div key={cat} className="flex items-center space-x-3 group">
+              <Checkbox
+                id={cat}
+                checked={currentCategory === cat}
+                onCheckedChange={() => updateFilter("category", cat)}
+                className="h-5 w-5 rounded-md border-2 border-slate-200 data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-all"
+              />
+              <Label
+                htmlFor={cat}
+                className="text-[11px] font-bold uppercase tracking-tight text-slate-500 group-hover:text-slate-900 transition-colors cursor-pointer"
+              >
                 {cat.replace("_", " ")}
-              </span>
-              {currentCategory === cat && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
+              </Label>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="space-y-6">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 border-l-4 border-primary pl-3">
-          Browse Brands
+      <Separator className="bg-slate-100" />
+
+      <div>
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8">
+          Brands
         </h3>
-        <ScrollArea className="h-100 pr-4">
-          <div className="space-y-2">
+        <ScrollArea className="h-100 -mr-4 pr-4">
+          <div className="space-y-5">
             {brands.map((brand) => (
-              <div
-                key={brand.id}
-                className={`flex items-center space-x-3 p-3 rounded-xl transition-all cursor-pointer ${
-                  currentBrand === brand.slug ? "bg-slate-900 text-white" : "hover:bg-slate-50 text-slate-600"
-                }`}
-                onClick={() => updateFilter("brand", brand.slug)}
-              >
+              <div key={brand.id} className="flex items-center space-x-3 group">
                 <Checkbox
                   id={brand.id}
                   checked={currentBrand === brand.slug}
-                  className="border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  onCheckedChange={() => updateFilter("brand", brand.slug)}
+                  className="h-5 w-5 rounded-md border-2 border-slate-200 data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-all"
                 />
                 <Label
                   htmlFor={brand.id}
-                  className="text-[10px] font-bold uppercase tracking-widest cursor-pointer flex-1"
+                  className="text-[11px] font-bold uppercase tracking-tight text-slate-500 group-hover:text-slate-900 transition-colors cursor-pointer"
                 >
                   {brand.name}
                 </Label>
@@ -84,15 +85,6 @@ export function FoodSidebar({ brands }: FoodSidebarProps) {
           </div>
         </ScrollArea>
       </div>
-
-      {(currentBrand || currentCategory) && (
-        <button
-          onClick={() => router.push("/food")}
-          className="w-full py-4 rounded-2xl bg-slate-50 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all border border-dashed border-slate-200"
-        >
-          Reset All Filters
-        </button>
-      )}
     </div>
   );
 }
