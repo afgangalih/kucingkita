@@ -2,6 +2,7 @@ import { getPublicFoods } from "./_actions/food-actions";
 import { prisma } from "@/lib/prisma";
 import { FoodSidebar } from "./_components/food-sidebar";
 import { FoodMobileFilter } from "./_components/food-mobile-filter";
+import { FoodCard } from "./_components/food-card";
 
 interface FoodPageProps {
   searchParams: Promise<{
@@ -46,16 +47,16 @@ export default async function FoodPage({ searchParams }: FoodPageProps) {
           </aside>
 
           <section className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-14">
               {foods.length === 0 ? (
                 <div className="col-span-full h-96 rounded-[3rem] bg-slate-50 border-2 border-dashed border-slate-100 flex items-center justify-center">
-                  <p className="text-[10px] font-black uppercase text-slate-300 tracking-widest">No matching products found</p>
+                  <p className="text-[10px] font-black uppercase text-slate-300 tracking-widest">
+                    No matching products found
+                  </p>
                 </div>
               ) : (
                 foods.map((food) => (
-                  <div key={food.id} className="h-80 rounded-[3rem] bg-slate-50 border-2 border-dashed border-slate-100 flex items-center justify-center hover:border-primary/20 transition-all cursor-pointer">
-                    <p className="text-[10px] font-black uppercase text-slate-300">{food.name}</p>
-                  </div>
+                  <FoodCard key={food.id} food={food} />
                 ))
               )}
             </div>
