@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Utensils } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Brand, Product } from "@prisma/client";
 
@@ -12,29 +12,30 @@ interface FoodCardProps {
 
 export function FoodCard({ food }: FoodCardProps) {
   return (
-    <Link href={`/food/${food.slug}`} className="group block">
-      <div className="relative space-y-4">
-        <div className="aspect-4/5 relative rounded-[2.5rem] bg-slate-50 border border-slate-100 overflow-hidden transition-all duration-500 ease-out group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] group-hover:border-primary/20">
-          
-          <div className="absolute inset-0 p-8 flex items-center justify-center">
-            <Image
-              src={food.image}
-              alt={food.name}
-              fill
-              className="object-contain p-10 transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110"
-              sizes="(max-width: 768px) 100vw, 350px"
-              priority
-            />
+    <Link href={`/food/${food.slug}`} className="group block w-full">
+      <div className="relative flex flex-col overflow-hidden rounded-[2.5rem] border border-slate-100 bg-white p-5 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] hover:border-slate-200">
+        <div className="aspect-square relative w-full overflow-hidden rounded-4xl">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-[85%] h-[85%] transition-transform duration-1000 ease-out group-hover:scale-110">
+              <Image
+                src={food.image}
+                alt={food.name}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 350px"
+                priority
+              />
+            </div>
           </div>
 
-          <div className="absolute top-6 left-6">
-            <Badge className="bg-white/90 backdrop-blur-md text-slate-900 border-none px-3 py-1 text-[8px] font-black uppercase tracking-[0.15em] shadow-sm">
+          <div className="absolute top-2 left-2">
+            <Badge className="bg-slate-50/80 backdrop-blur-md text-slate-500 border border-slate-100 px-3 py-1 text-[8px] font-black uppercase tracking-[0.15em] shadow-none">
               {food.category.replace("_", " ")}
             </Badge>
           </div>
 
-          <div className="absolute top-6 right-6">
-            <div className="relative h-9 w-9 rounded-xl bg-white/95 backdrop-blur-md border border-slate-100 p-1.5 shadow-sm overflow-hidden transition-transform duration-500 group-hover:rotate-6">
+          <div className="absolute top-2 right-2">
+            <div className="h-9 w-9 rounded-xl bg-white border border-slate-50 p-2 shadow-sm">
               <Image
                 src={food.brand.logo}
                 alt={food.brand.name}
@@ -44,26 +45,30 @@ export function FoodCard({ food }: FoodCardProps) {
             </div>
           </div>
 
-          <div className="absolute bottom-6 right-6 translate-y-4 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-            <div className="bg-slate-900 p-4 rounded-2xl text-white shadow-xl">
-              <ArrowRight className="h-5 w-5" />
+          <div className="absolute bottom-4 right-4 opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+            <div className="bg-slate-900 p-3.5 rounded-2xl text-white shadow-lg">
+              <ArrowUpRight className="h-4 w-4" />
             </div>
           </div>
         </div>
 
-        <div className="px-2 space-y-1.5">
-          <div className="flex items-center gap-2">
-            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/10">
-              <Utensils className="h-2 w-2 text-primary" strokeWidth={4} />
-            </div>
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">
-              {food.brand.name}
+        <div className="px-1 pt-6 pb-2 space-y-2">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+            {food.brand.name}
+          </p>
+
+          <div className="min-h-14 flex flex-col justify-start">
+            <h3 className="text-lg md:text-xl font-black italic tracking-tighter uppercase text-slate-900 leading-[1.1] group-hover:text-primary transition-colors duration-300 line-clamp-2 overflow-hidden">
+              {food.name}
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-3 pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+            <div className="h-px flex-1 bg-slate-100" />
+            <span className="text-[9px] font-black uppercase italic tracking-widest text-primary">
+              View Info
             </span>
           </div>
-          
-          <h3 className="text-xl font-black italic uppercase tracking-tighter text-slate-900 leading-tight group-hover:text-primary transition-colors duration-300 line-clamp-1">
-            {food.name}
-          </h3>
         </div>
       </div>
     </Link>
