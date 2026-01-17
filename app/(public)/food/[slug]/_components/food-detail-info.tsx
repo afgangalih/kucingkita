@@ -15,19 +15,19 @@ export function FoodDetailInfo({ food }: FoodDetailInfoProps) {
         <TabsList className="w-full justify-start h-auto p-0 bg-transparent border-b border-slate-100 rounded-none gap-8">
           <TabsTrigger
             value="detail"
-            className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none pb-4 px-0 text-[10px] font-black uppercase tracking-widest text-slate-400 data-[state=active]:text-slate-900"
+            className="relative h-auto rounded-none border-b-2 border-transparent bg-transparent px-0 pb-4 pt-0 text-[10px] font-black uppercase tracking-widest text-slate-400 shadow-none transition-all data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-slate-900 data-[state=active]:shadow-none"
           >
             Detail Produk
           </TabsTrigger>
           <TabsTrigger
             value="manfaat"
-            className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none pb-4 px-0 text-[10px] font-black uppercase tracking-widest text-slate-400 data-[state=active]:text-slate-900"
+            className="relative h-auto rounded-none border-b-2 border-transparent bg-transparent px-0 pb-4 pt-0 text-[10px] font-black uppercase tracking-widest text-slate-400 shadow-none transition-all data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-slate-900 data-[state=active]:shadow-none"
           >
             Manfaat
           </TabsTrigger>
           <TabsTrigger
             value="nutrisi"
-            className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none pb-4 px-0 text-[10px] font-black uppercase tracking-widest text-slate-400 data-[state=active]:text-slate-900"
+            className="relative h-auto rounded-none border-b-2 border-transparent bg-transparent px-0 pb-4 pt-0 text-[10px] font-black uppercase tracking-widest text-slate-400 shadow-none transition-all data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-slate-900 data-[state=active]:shadow-none"
           >
             Informasi Nutrisi
           </TabsTrigger>
@@ -47,34 +47,32 @@ export function FoodDetailInfo({ food }: FoodDetailInfoProps) {
           </TabsContent>
 
           <TabsContent value="manfaat" className="mt-0 outline-none">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-primary">
-                  <Sparkles size={16} strokeWidth={3} />
-                  <h3 className="text-sm font-black uppercase tracking-widest">Key Benefits</h3>
-                </div>
-               
-                <ul className="space-y-4">
-                  {food.benefits.split("\n").map((benefit, index) => (
-                    <li key={index} className="flex gap-4">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                      <p className="text-slate-600 font-medium leading-snug">{benefit}</p>
-                    </li>
-                  ))}
-                </ul>
+            <div className="max-w-3xl space-y-6">
+              <div className="flex items-center gap-3 text-primary">
+                <Sparkles size={16} strokeWidth={3} />
+                <h3 className="text-sm font-black uppercase tracking-widest">Manfaat Utama</h3>
+              </div>
+              <div className="text-slate-600 leading-relaxed text-lg font-medium">
+                {food.benefits.split("\n").map((paragraph, index) => (
+                  <p key={index} className="mb-4 last:mb-0">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
           </TabsContent>
 
           <TabsContent value="nutrisi" className="mt-0 outline-none">
-            <div className="max-w-2xl p-8 rounded-4xl bg-slate-50 border border-slate-100">
-              <div className="flex items-center gap-3 text-primary mb-8">
+            <div className="max-w-3xl space-y-6">
+              <div className="flex items-center gap-3 text-primary">
                 <Activity size={16} strokeWidth={3} />
                 <h3 className="text-sm font-black uppercase tracking-widest">Kandungan Nutrisi</h3>
               </div>
-              <div className="prose prose-slate max-w-none prose-p:text-slate-600 prose-p:font-medium">
+              <div className="text-slate-600 leading-relaxed text-lg font-medium">
                 {food.nutrition.split("\n").map((item, i) => (
-                  <p key={i} className="mb-2">{item}</p>
+                  <p key={i} className="mb-2 last:mb-0">
+                    {item}
+                  </p>
                 ))}
               </div>
             </div>

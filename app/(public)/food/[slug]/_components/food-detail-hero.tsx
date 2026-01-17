@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { Brand, Product } from "@prisma/client";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Badge } from "@/components/ui/badge";
 
 interface FoodDetailHeroProps {
   food: Product & { brand: Brand };
@@ -11,37 +9,27 @@ interface FoodDetailHeroProps {
 
 export function FoodDetailHero({ food }: FoodDetailHeroProps) {
   return (
-    <div className="relative w-full overflow-hidden rounded-[3rem] bg-slate-50 border border-slate-100">
-      <div className="absolute top-8 left-8 z-10 flex flex-col gap-3">
-        <Badge className="w-fit bg-primary text-white border-none px-4 py-2 text-[10px] font-black uppercase tracking-widest shadow-xl">
-          {food.category.replace("_", " ")}
-        </Badge>
-        <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 backdrop-blur-md border border-slate-100 shadow-sm w-fit">
-          <div className="relative h-5 w-5">
-            <Image
-              src={food.brand.logo}
-              alt={food.brand.name}
-              fill
-              className="object-contain"
-            />
-          </div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">
-            {food.brand.name}
-          </span>
+    <div className="relative w-full aspect-square flex items-center justify-center bg-white group">
+      <div className="absolute top-0 right-0 z-10">
+        <div className="relative h-14 w-14 rounded-2xl border border-slate-50 bg-white/50 backdrop-blur-sm p-3 shadow-sm transition-all duration-500 group-hover:shadow-md">
+          <Image
+            src={food.brand.logo}
+            alt={food.brand.name}
+            fill
+            className="object-contain p-2"
+          />
         </div>
       </div>
 
-      <div className="p-12 md:p-24 flex items-center justify-center">
-        <div className="w-full max-w-md transition-transform duration-1000 hover:scale-105">
-          <AspectRatio ratio={1 / 1}>
-            <Image
-              src={food.image}
-              alt={food.name}
-              fill
-              className="object-contain"
-              priority
-            />
-          </AspectRatio>
+      <div className="relative w-full h-full flex items-center justify-center p-4">
+        <div className="relative w-[85%] h-[85%] transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105">
+          <Image
+            src={food.image}
+            alt={food.name}
+            fill
+            className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.07)]"
+            priority
+          />
         </div>
       </div>
     </div>
