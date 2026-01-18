@@ -2,6 +2,7 @@ import { getFoodBySlug } from "../_actions/food-actions";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Share2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { FoodDetailHero } from "./_components/food-detail-hero";
 import { FoodDetailInfo } from "./_components/food-detail-info";
@@ -49,16 +50,30 @@ export default async function FoodDetailPage({ params }: FoodDetailPageProps) {
 
          
           <div className="space-y-12">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-primary">
-                <div className="h-1 w-1 bg-primary rounded-full" />
-                <p className="text-[10px] font-black uppercase tracking-[0.4em]">
-                  {food.brand.name} • {food.category.replace("_", " ")}
-                </p>
-              </div>
+            <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-tight">
                 {food.name}
               </h1>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-3 rounded-full border border-slate-100 bg-white py-1.5 pl-1.5 pr-4 shadow-sm transition-transform hover:scale-105">
+                  <div className="relative h-8 w-8 overflow-hidden rounded-full border border-slate-100 bg-slate-50 p-1">
+                    <Image
+                      src={food.brand.logo}
+                      alt={food.brand.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wide text-slate-900">
+                    {food.brand.name}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center rounded-full border border-slate-100 bg-slate-50 px-4 py-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    {food.category.replace(/_/g, " ")}
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-10">
